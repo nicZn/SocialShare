@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Renren.h"
 
 //Weixin config
 #define WeixinAppId  @"wxd25b2dd6207a36f7"
@@ -14,8 +15,8 @@
 
 
 //Renren config
-#define RenrenAppId     @"237526"
-#define RenrenAppKey    @"7627857571a64196bdf72f5e33762869"
+//#define RenrenAppId     @"237526"
+//#define RenrenAppKey    @"7627857571a64196bdf72f5e33762869"
 #define RenrenSecertKey @"731a2b281dcd4e8fa5148dd9b7e00755"
 
 
@@ -24,6 +25,21 @@
 #define WeiboAppKey    @"3094941605"
 #define WeiboSecertKey @"1ae5122b9dfe1c102aae56cc33f98b67"
 
-@interface SNSUtility : NSObject
+typedef enum {
+    RenrenType = 0,
+    WeiXinType = 1,
+    WeiboType  = 2
+    } SNSType;
+
+@protocol SNSDelegate <NSObject>
+
+@required
+-(void)authSuccess:(SNSType) type withInfo:(NSDictionary *)userInfo;
+
+@end
+
+@interface SNSUtility : NSObject<RenrenDelegate>
+
++(void)authRenrenWithDelegate:(id<SNSDelegate>) delegate;
 
 @end
