@@ -20,13 +20,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "SNSBigBang/UI/WeixinViewController.m"
-         timestampString = "393919451.233974"
+         filePath = "SNSBigBang/SNSLibrary/SNSUtility.m"
+         timestampString = "393922666.858683"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "55"
-         endingLineNumber = "55"
-         landmarkName = "-loginWeChat:"
+         startingLineNumber = "76"
+         endingLineNumber = "76"
+         landmarkName = "-renrenDidLogin:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

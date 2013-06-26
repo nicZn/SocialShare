@@ -27,7 +27,7 @@ static SNSUtility * singleSNSUtility = nil;
 
 -(void) authRenrenWithDelegate:(id<SNSDelegate>)delegate{
     if(![[Renren sharedRenren] isSessionValid]){
-        [[Renren sharedRenren] authorizationInNavigationWithPermisson:nil andDelegate:singleSNSUtility];
+        [[Renren sharedRenren] authorizationWithPermisson:[[NSArray alloc] initWithObjects:@"read_user_feed", nil] andDelegate:singleSNSUtility];
     }
     else{
         
@@ -37,6 +37,10 @@ static SNSUtility * singleSNSUtility = nil;
 -(void)authWeiboWithDelegate:(id<SNSDelegate>)delegate{
     SinaWeibo *weibo = [[SinaWeibo alloc] initWithAppKey:WeiboAppKey appSecret:WeiboSecertKey appRedirectURI:WeiboRedirectURI andDelegate:singleSNSUtility];
     [weibo logIn];
+}
+
+-(void)getNewsForRenren{
+    
 }
 
 
@@ -56,7 +60,7 @@ static SNSUtility * singleSNSUtility = nil;
  * @param response 传回接口请求的错误对象。
  */
 - (void)renren:(Renren *)renren requestFailWithError:(ROError*)error{
-    
+    NSLog(@"request error");
 }
 
 /**
@@ -73,7 +77,7 @@ static SNSUtility * singleSNSUtility = nil;
  * @param renren 传回代理授权登录接口请求的Renren类型对象。
  */
 - (void)renrenDidLogin:(Renren *)renren{
-    
+    NSLog(@"%@",renren);
 }
 
 /**
