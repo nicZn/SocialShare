@@ -7,12 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import "WXApi.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [WXApi registerApp:@"wxd25b2dd6207a36f7"];
     return YES;
 }
 							

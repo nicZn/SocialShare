@@ -405,7 +405,9 @@ static CGFloat kBorderWidth = 10;
 - (void)cancel
 {
     [self hide];
-    [delegate authorizeViewDidCancel:self];
+    if([delegate respondsToSelector:@selector(authorizeViewDidCancel:)]){
+        [delegate authorizeViewDidCancel:self];
+    }
 }
 
 #pragma mark - UIWebView Delegate

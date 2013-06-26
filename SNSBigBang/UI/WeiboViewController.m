@@ -1,18 +1,19 @@
 //
-//  RenrenViewController.m
+//  WeiboViewController.m
 //  SNSBigBang
 //
-//  Created by 張 寧 on 2013/06/25.
+//  Created by 張 寧 on 2013/06/26.
 //  Copyright (c) 2013年 張 寧. All rights reserved.
 //
 
-#import "RenrenViewController.h"
+#import "WeiboViewController.h"
+#import "SNSUtility.h"
 
-@interface RenrenViewController ()
+@interface WeiboViewController ()
 
 @end
 
-@implementation RenrenViewController
+@implementation WeiboViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,19 +27,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [[[self navigationController] navigationBar] topItem].title = @"Renren";
+    [[[self navigationController] navigationBar] topItem].title = @"Weibo";
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 40)];
     [[button layer] setCornerRadius:8.0];
     [button setTitle:@"Login" forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor redColor]];
-    [button addTarget:self action:@selector(authUser:) forControlEvents:UIControlEventTouchUpInside];
-    [[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
+    [button addTarget:self action:@selector(loginWeibo:) forControlEvents:UIControlEventTouchUpInside];
+	[[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -48,14 +48,8 @@
 
 #pragma mark - button Action
 
--(IBAction)authUser:(id)sender{
-    [[SNSUtility shareInstanse] authRenrenWithDelegate:self];
-}
-
-#pragma mark - delegate
-#pragma mark - SNS AUTH
--(void)authSuccess:(SNSType)type withInfo:(NSDictionary *)userInfo{
-    
+-(IBAction)loginWeibo:(id)sender{
+    [[SNSUtility shareInstanse] authWeiboWithDelegate:self];
 }
 
 @end

@@ -1,18 +1,19 @@
 //
-//  RenrenViewController.m
+//  WeixinViewController.m
 //  SNSBigBang
 //
-//  Created by 張 寧 on 2013/06/25.
+//  Created by 張 寧 on 2013/06/26.
 //  Copyright (c) 2013年 張 寧. All rights reserved.
 //
 
-#import "RenrenViewController.h"
+#import "WeixinViewController.h"
+#import "WXApi.h"
 
-@interface RenrenViewController ()
+@interface WeixinViewController ()
 
 @end
 
-@implementation RenrenViewController
+@implementation WeixinViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,15 +31,14 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [[[self navigationController] navigationBar] topItem].title = @"Renren";
+    [[[self navigationController] navigationBar] topItem].title = @"WeChat";
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 40)];
     [[button layer] setCornerRadius:8.0];
     [button setTitle:@"Login" forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor redColor]];
-    [button addTarget:self action:@selector(authUser:) forControlEvents:UIControlEventTouchUpInside];
-    [[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
+    [button addTarget:self action:@selector(loginWeChat:) forControlEvents:UIControlEventTouchUpInside];
+	[[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -46,16 +46,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - button Action
+#pragma mark - Button Action
 
--(IBAction)authUser:(id)sender{
-    [[SNSUtility shareInstanse] authRenrenWithDelegate:self];
-}
-
-#pragma mark - delegate
-#pragma mark - SNS AUTH
--(void)authSuccess:(SNSType)type withInfo:(NSDictionary *)userInfo{
-    
+-(IBAction)loginWeChat:(id)sender{
+    SendAuthReq * authReq = [[SendAuthReq alloc] init];
+    authReq.scope = @"test";
+    authReq.state = @"test";
+    [WXApi sendReq:authReq];
 }
 
 @end

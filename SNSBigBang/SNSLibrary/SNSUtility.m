@@ -8,6 +8,9 @@
 
 #import "SNSUtility.h"
 #import "Renren.h"
+#import "SinaWeibo.h"
+
+static SNSUtility * singleSNSUtility = nil;
 
 @interface SNSUtility()
 
@@ -15,15 +18,29 @@
 
 @implementation SNSUtility
 
-+(void) authRenrenWithDelegate:(id<SNSDelegate>)delegate{
++(SNSUtility *)shareInstanse{
+    if(singleSNSUtility == nil){
+        singleSNSUtility = [[SNSUtility alloc] init];
+    }
+    return singleSNSUtility;
+}
+
+-(void) authRenrenWithDelegate:(id<SNSDelegate>)delegate{
     if(![[Renren sharedRenren] isSessionValid]){
-        [[Renren sharedRenren] authorizationInNavigationWithPermisson:nil andDelegate:self];
+        [[Renren sharedRenren] authorizationInNavigationWithPermisson:nil andDelegate:singleSNSUtility];
     }
     else{
         
     }
 }
 
+-(void)authWeiboWithDelegate:(id<SNSDelegate>)delegate{
+    SinaWeibo *weibo = [[SinaWeibo alloc] initWithAppKey:WeiboAppKey appSecret:WeiboSecertKey appRedirectURI:WeiboRedirectURI andDelegate:singleSNSUtility];
+    [weibo logIn];
+}
+
+
+#pragma mark - Renren Delegate
 /**
  * 接口请求成功，第三方开发者实现这个方法
  * @param renren 传回代理服务器接口请求的Renren类型对象。
@@ -75,5 +92,31 @@
     
 }
 
+
+#pragma mark - Weibo Delegate
+
+- (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo{
+    
+}
+
+
+- (void)sinaweiboDidLogOut:(SinaWeibo *)sinaweibo{
+    
+}
+
+
+- (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo{
+    
+}
+
+
+- (void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error{
+    
+}
+
+
+- (void)sinaweibo:(SinaWeibo *)sinaweibo accessTokenInvalidOrExpired:(NSError *)error{
+    
+}
 
 @end

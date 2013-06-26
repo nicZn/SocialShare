@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--View Controller - Weibo-->
+        <!--Weibo View Controller - Weibo-->
         <scene sceneID="RSs-au-7Sa">
             <objects>
-                <viewController id="e6x-1M-grg" sceneMemberID="viewController">
+                <viewController id="e6x-1M-grg" customClass="WeiboViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MKF-xX-enc">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -34,10 +34,10 @@
             </objects>
             <point key="canvasLocation" x="824" y="623"/>
         </scene>
-        <!--View Controller - Winxin-->
+        <!--Weixin View Controller - Winxin-->
         <scene sceneID="PYH-M8-vSD">
             <objects>
-                <viewController id="sEa-qS-CCh" sceneMemberID="viewController">
+                <viewController id="sEa-qS-CCh" customClass="WeixinViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K2C-5E-ePh">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -56,26 +56,7 @@
                     <view key="view" contentMode="scaleToFill" id="l28-RH-xlJ">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xaO-1r-cYE">
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Login">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="authUser:" destination="uHD-7g-4y3" eventType="touchUpInside" id="LfZ-ka-ACA"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="xaO-1r-cYE" firstAttribute="top" secondItem="l28-RH-xlJ" secondAttribute="top" constant="20" symbolic="YES" type="default" id="2tb-So-la7"/>
-                            <constraint firstAttribute="trailing" secondItem="xaO-1r-cYE" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="4oM-kd-suJ"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="RenRen" id="YgV-gY-ATp"/>
                 </viewController>
@@ -103,7 +84,7 @@
             <objects>
                 <tabBarController definesPresentationContext="YES" id="7sC-kG-stb" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="9dA-kj-YxS"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="08f-uT-gE0">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -121,20 +102,6 @@
             <point key="canvasLocation" x="248" y="2"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="RenrenViewController" superclassName="ViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RenrenViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="authUser:"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

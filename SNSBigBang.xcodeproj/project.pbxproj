@@ -98,6 +98,8 @@
 		852C2F83177983B9005C1121 /* libWeChatSDK_armv7_armv7s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 852C2F7F177983B9005C1121 /* libWeChatSDK_armv7_armv7s.a */; };
 		852C2F8617799206005C1121 /* SNSUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 852C2F8517799204005C1121 /* SNSUtility.m */; };
 		852C2F8B17799B00005C1121 /* RenrenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 852C2F8A17799B00005C1121 /* RenrenViewController.m */; };
+		858EE5EC177A92F4000FF384 /* WeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EB177A92F4000FF384 /* WeiboViewController.m */; };
+		858EE5EF177AAECB000FF384 /* WeixinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EE177AAECA000FF384 /* WeixinViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -258,6 +260,10 @@
 		852C2F8517799204005C1121 /* SNSUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSUtility.m; sourceTree = "<group>"; };
 		852C2F8917799B00005C1121 /* RenrenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenrenViewController.h; path = UI/RenrenViewController.h; sourceTree = "<group>"; };
 		852C2F8A17799B00005C1121 /* RenrenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenrenViewController.m; path = UI/RenrenViewController.m; sourceTree = "<group>"; };
+		858EE5EA177A92F4000FF384 /* WeiboViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboViewController.h; path = UI/WeiboViewController.h; sourceTree = "<group>"; };
+		858EE5EB177A92F4000FF384 /* WeiboViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboViewController.m; path = UI/WeiboViewController.m; sourceTree = "<group>"; };
+		858EE5ED177AAECA000FF384 /* WeixinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeixinViewController.h; path = UI/WeixinViewController.h; sourceTree = "<group>"; };
+		858EE5EE177AAECA000FF384 /* WeixinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeixinViewController.m; path = UI/WeixinViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -652,6 +658,10 @@
 			children = (
 				852C2F8917799B00005C1121 /* RenrenViewController.h */,
 				852C2F8A17799B00005C1121 /* RenrenViewController.m */,
+				858EE5EA177A92F4000FF384 /* WeiboViewController.h */,
+				858EE5EB177A92F4000FF384 /* WeiboViewController.m */,
+				858EE5ED177AAECA000FF384 /* WeixinViewController.h */,
+				858EE5EE177AAECA000FF384 /* WeixinViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -802,6 +812,8 @@
 				852C2F7C17798227005C1121 /* SinaWeiboRequest.m in Sources */,
 				852C2F8617799206005C1121 /* SNSUtility.m in Sources */,
 				852C2F8B17799B00005C1121 /* RenrenViewController.m in Sources */,
+				858EE5EC177A92F4000FF384 /* WeiboViewController.m in Sources */,
+				858EE5EF177AAECB000FF384 /* WeixinViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -934,6 +946,7 @@
 				852C2C20177977AC005C1121 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Renren.h"
+#import "SinaWeibo.h"
 
 //Weixin config
 #define WeixinAppId  @"wxd25b2dd6207a36f7"
@@ -17,13 +18,14 @@
 //Renren config
 //#define RenrenAppId     @"237526"
 //#define RenrenAppKey    @"7627857571a64196bdf72f5e33762869"
-#define RenrenSecertKey @"731a2b281dcd4e8fa5148dd9b7e00755"
+//#define RenrenSecertKey @"731a2b281dcd4e8fa5148dd9b7e00755"
 
 
 //Weibo config
 
-#define WeiboAppKey    @"3094941605"
-#define WeiboSecertKey @"1ae5122b9dfe1c102aae56cc33f98b67"
+#define WeiboAppKey      @"3094941605"
+#define WeiboSecertKey   @"1ae5122b9dfe1c102aae56cc33f98b67"
+#define WeiboRedirectURI @"http://www.sina.com"
 
 typedef enum {
     RenrenType = 0,
@@ -38,8 +40,12 @@ typedef enum {
 
 @end
 
-@interface SNSUtility : NSObject<RenrenDelegate>
+@interface SNSUtility : NSObject<RenrenDelegate,SinaWeiboDelegate,SinaWeiboRequestDelegate,SinaWeiboAuthorizeViewDelegate>
 
-+(void)authRenrenWithDelegate:(id<SNSDelegate>) delegate;
++(SNSUtility *)shareInstanse;
+
+-(void)authRenrenWithDelegate:(id<SNSDelegate>) delegate;
+-(void)authWeiboWithDelegate:(id<SNSDelegate>) delegate;
+
 
 @end
