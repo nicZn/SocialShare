@@ -27,7 +27,7 @@ static SNSUtility * singleSNSUtility = nil;
 
 -(void) authRenrenWithDelegate:(id<SNSDelegate>)delegate{
     if(![[Renren sharedRenren] isSessionValid]){
-        [[Renren sharedRenren] authorizationWithPermisson:[[NSArray alloc] initWithObjects:@"read_user_feed", nil] andDelegate:singleSNSUtility];
+        [[Renren sharedRenren] authorizationWithPermisson:[[NSArray alloc] initWithObjects:@"read_user_feed status_update", nil] andDelegate:singleSNSUtility];
     }
     else{
         
@@ -40,9 +40,20 @@ static SNSUtility * singleSNSUtility = nil;
 }
 
 -(void)getNewsForRenren{
-    
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    [params setObject:@"feed.get" forKey:@"method"];
+    [params setObject:@"10" forKey:@"type"];
+    [params setObject:@"1.0" forKey:@"v"];
+    [[[Renren sharedRenren] requestWithParams:params andDelegate:singleSNSUtility] connect];
 }
 
+-(void)sendRenrenStatus:(NSString *)status withDelegate:(id<SNSDelegate>) delegate{
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    [params setObject:@"status.set" forKey:@"method"];
+    [params setObject:status forKey:@"status"];
+    [params setObject:@"1.0" forKey:@"v"];
+    [[[Renren sharedRenren] requestWithParams:params andDelegate:singleSNSUtility] connect];
+}
 
 #pragma mark - Renren Delegate
 /**
@@ -51,7 +62,8 @@ static SNSUtility * singleSNSUtility = nil;
  * @param response 传回接口请求的响应。
  */
 - (void)renren:(Renren *)renren requestDidReturnResponse:(ROResponse*)response{
-    
+    [response rootObject];  // json response string
+
 }
 
 /**
@@ -68,7 +80,7 @@ static SNSUtility * singleSNSUtility = nil;
  * @param renren 传回代理授权登录接口请求的Renren类型对象。
  */
 - (void)renrenDialogDidCancel:(Renren *)renren{
-    
+    NSLog(@"dialog cancel");
 }
 
 
@@ -85,7 +97,7 @@ static SNSUtility * singleSNSUtility = nil;
  * @param renren 传回代理登出接口请求的Renren类型对象。
  */
 - (void)renrenDidLogout:(Renren *)renren{
-    
+    NSLog(@"logout");
 }
 
 /**
@@ -93,7 +105,7 @@ static SNSUtility * singleSNSUtility = nil;
  * @param renren 传回代理授权登录接口请求的Renren类型对象。
  */
 - (void)renren:(Renren *)renren loginFailWithError:(ROError*)error{
-    
+    NSLog(@"Login Fail!");
 }
 
 

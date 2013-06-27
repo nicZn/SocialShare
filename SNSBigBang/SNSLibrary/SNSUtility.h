@@ -48,4 +48,7 @@ typedef enum {
 -(void)authWeiboWithDelegate:(id<SNSDelegate>) delegate;
 
 
+-(void)getNewsForRenren;
+-(void)sendRenrenStatus:(NSString *)status withDelegate:(id<SNSDelegate>) delegate;
+
 @end
