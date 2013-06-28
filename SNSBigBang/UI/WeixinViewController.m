@@ -49,10 +49,7 @@
 #pragma mark - Button Action
 
 -(IBAction)loginWeChat:(id)sender{
-    SendAuthReq * authReq = [[SendAuthReq alloc] init];
-    authReq.scope = @"test";
-    authReq.state = @"test";
-    [WXApi sendReq:authReq];
+    
 }
 
 @end

@@ -45,7 +45,6 @@ static SNSUtility * singleSNSUtility = nil;
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     [params setObject:@"feed.get" forKey:@"method"];
     [params setObject:@"10" forKey:@"type"];
-    [params setObject:@"1.0" forKey:@"v"];
     [[[Renren sharedRenren] requestWithParams:params andDelegate:singleSNSUtility] connect];
 }
 
@@ -86,7 +85,11 @@ static SNSUtility * singleSNSUtility = nil;
  * @param response 传回接口请求的响应。
  */
 - (void)renren:(Renren *)renren requestDidReturnResponse:(ROResponse*)response{
-    [response rootObject];  // json response string
+    NSArray * info = [response rootObject];  // json response string
+    for (NSDictionary *single in info) {
+        NSLog(@"%@",[single objectForKey:@"name"]);
+        
+    }
 
 }
 
@@ -160,7 +163,7 @@ static SNSUtility * singleSNSUtility = nil;
 }
 
 
-#pragma mark - 
+#pragma mark
 
 
 /*

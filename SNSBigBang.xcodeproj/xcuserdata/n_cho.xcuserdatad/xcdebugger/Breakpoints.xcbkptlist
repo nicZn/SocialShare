@@ -20,13 +20,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "SNSBigBang/SNSLibrary/SNSUtility.m"
-         timestampString = "394080609.69808"
+         filePath = "SNSBigBang/SNSLibrary/Weibo/SinaWeibo/SinaWeiboRequest.m"
+         timestampString = "394080763.332605"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "116"
-         endingLineNumber = "116"
-         landmarkName = "-renrenDidLogin:"
+         startingLineNumber = "330"
+         endingLineNumber = "330"
+         landmarkName = "-connect"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -34,7 +34,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SNSBigBang/SNSLibrary/SNSUtility.m"
-         timestampString = "394080609.69808"
+         timestampString = "394103961.642777"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "90"
@@ -47,51 +47,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SNSBigBang/SNSLibrary/SNSUtility.m"
-         timestampString = "394080609.69808"
+         timestampString = "394103376.676327"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "99"
-         endingLineNumber = "99"
-         landmarkName = "-renren:requestFailWithError:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SNSBigBang/SNSLibrary/SNSUtility.m"
-         timestampString = "394080609.69808"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "179"
-         endingLineNumber = "179"
-         landmarkName = "-request:didFailWithError:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SNSBigBang/SNSLibrary/SNSUtility.m"
-         timestampString = "394080609.69808"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "183"
-         endingLineNumber = "183"
-         landmarkName = "-request:didFinishLoadingWithResult:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SNSBigBang/SNSLibrary/Weibo/SinaWeibo/SinaWeiboRequest.m"
-         timestampString = "394080763.332605"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "330"
-         endingLineNumber = "330"
-         landmarkName = "-connect"
+         startingLineNumber = "71"
+         endingLineNumber = "71"
+         landmarkName = "-getNewsForWeibo:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
