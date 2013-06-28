@@ -9,14 +9,19 @@
 #import "SNSUtility.h"
 #import "Renren.h"
 #import "SinaWeibo.h"
+#import "SinaWeiboRequest.h"
 
 static SNSUtility * singleSNSUtility = nil;
 
 @interface SNSUtility()
 
+@property (nonatomic) SinaWeibo *weibo;
+
 @end
 
 @implementation SNSUtility
+
+@synthesize weibo;
 
 +(SNSUtility *)shareInstanse{
     if(singleSNSUtility == nil){
@@ -25,6 +30,8 @@ static SNSUtility * singleSNSUtility = nil;
     return singleSNSUtility;
 }
 
+#pragma mark - Renren
+
 -(void) authRenrenWithDelegate:(id<SNSDelegate>)delegate{
     if(![[Renren sharedRenren] isSessionValid]){
         [[Renren sharedRenren] authorizationWithPermisson:[[NSArray alloc] initWithObjects:@"read_user_feed status_update", nil] andDelegate:singleSNSUtility];
@@ -32,11 +39,6 @@ static SNSUtility * singleSNSUtility = nil;
     else{
         
     }
-}
-
--(void)authWeiboWithDelegate:(id<SNSDelegate>)delegate{
-    SinaWeibo *weibo = [[SinaWeibo alloc] initWithAppKey:WeiboAppKey appSecret:WeiboSecertKey appRedirectURI:WeiboRedirectURI andDelegate:singleSNSUtility];
-    [weibo logIn];
 }
 
 -(void)getNewsForRenren{
@@ -54,6 +56,28 @@ static SNSUtility * singleSNSUtility = nil;
     [params setObject:@"1.0" forKey:@"v"];
     [[[Renren sharedRenren] requestWithParams:params andDelegate:singleSNSUtility] connect];
 }
+
+
+
+#pragma mark - Weibo
+
+-(void)authWeiboWithDelegate:(id<SNSDelegate>)delegate{
+    weibo = [[SinaWeibo alloc] initWithAppKey:WeiboAppKey appSecret:WeiboSecertKey appRedirectURI:WeiboRedirectURI andDelegate:singleSNSUtility];
+    [weibo logIn];
+}
+
+-(void)getNewsForWeibo:(id<SNSDelegate>)delegate{
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    [params setObject:WeiboAppKey forKey:@"appkey"];
+    [[weibo requestWithURL:@"statuses/friends_timeline.json" params:params httpMethod:@"GET" delegate:singleSNSUtility] connect];
+}
+
+-(void)pushStatus:(NSString *)status withDelegate:(id<SNSDelegate>)delegate{
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    [params setObject:[[NSString alloc] initWithCString:[status cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding] forKey:@"status"];
+    [[weibo requestWithURL:@"statuses/update.json" params:params httpMethod:@"POST" delegate:singleSNSUtility] connect];
+}
+
 
 #pragma mark - Renren Delegate
 /**
@@ -133,6 +157,30 @@ static SNSUtility * singleSNSUtility = nil;
 
 - (void)sinaweibo:(SinaWeibo *)sinaweibo accessTokenInvalidOrExpired:(NSError *)error{
     
+}
+
+
+#pragma mark - 
+
+
+/*
+ don't use now , so 
+ */
+
+//- (void)request:(SinaWeiboRequest *)request didReceiveResponse:(NSURLResponse *)response{
+//    NSLog(@"get all response: %@",response);
+//}
+//
+//- (void)request:(SinaWeiboRequest *)request didReceiveRawData:(NSData *)data{
+//    NSLog(@"get all data: %@",data);
+//}
+
+- (void)request:(SinaWeiboRequest *)request didFailWithError:(NSError *)error{
+    NSLog(@"error: %@",error);
+}
+
+- (void)request:(SinaWeiboRequest *)request didFinishLoadingWithResult:(id)result{
+    NSLog(@"get all result: %@",result);
 }
 
 @end

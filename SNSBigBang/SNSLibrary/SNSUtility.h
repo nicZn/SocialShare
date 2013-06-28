@@ -45,10 +45,11 @@ typedef enum {
 +(SNSUtility *)shareInstanse;
 
 -(void)authRenrenWithDelegate:(id<SNSDelegate>) delegate;
--(void)authWeiboWithDelegate:(id<SNSDelegate>) delegate;
-
-
 -(void)getNewsForRenren;
 -(void)sendRenrenStatus:(NSString *)status withDelegate:(id<SNSDelegate>) delegate;
 
+
+-(void)authWeiboWithDelegate:(id<SNSDelegate>) delegate;
+-(void)getNewsForWeibo:(id<SNSDelegate>)delegate;
+-(void)pushStatus:(NSString *)status withDelegate:(id<SNSDelegate>)delegate;
 @end

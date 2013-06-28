@@ -11,9 +11,13 @@
 
 @interface WeiboViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextView *statusTextView;
+
 @end
 
 @implementation WeiboViewController
+
+@synthesize statusTextView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,6 +42,10 @@
     [button setBackgroundColor:[UIColor redColor]];
     [button addTarget:self action:@selector(loginWeibo:) forControlEvents:UIControlEventTouchUpInside];
 	[[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
+    
+    self.statusTextView.layer.borderWidth = 1.0;
+    self.statusTextView.layer.cornerRadius = 4.0f;
+    self.statusTextView.layer.borderColor = [[UIColor redColor] CGColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,4 +60,14 @@
     [[SNSUtility shareInstanse] authWeiboWithDelegate:self];
 }
 
+- (IBAction)getNews:(id)sender {
+    [[SNSUtility shareInstanse] getNewsForWeibo:self];
+}
+
+- (IBAction)pushStatus:(id)sender {
+    NSString *status = self.statusTextView.text;
+    if (status != nil && status.length> 0) {
+        [[SNSUtility shareInstanse] pushStatus:status withDelegate:self];
+    }
+}
 @end
