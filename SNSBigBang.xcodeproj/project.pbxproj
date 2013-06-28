@@ -101,6 +101,7 @@
 		858EE5EC177A92F4000FF384 /* WeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EB177A92F4000FF384 /* WeiboViewController.m */; };
 		858EE5EF177AAECB000FF384 /* WeixinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EE177AAECA000FF384 /* WeixinViewController.m */; };
 		85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */; };
+		85DF3F74177D980100DC0A7B /* WeiboNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -267,6 +268,8 @@
 		858EE5EE177AAECA000FF384 /* WeixinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeixinViewController.m; path = UI/WeixinViewController.m; sourceTree = "<group>"; };
 		85DF3F6E177D8FA700DC0A7B /* RenrenNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenrenNewsCell.h; path = SNSCache/RenrenNewsCell.h; sourceTree = "<group>"; };
 		85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenrenNewsCell.m; path = SNSCache/RenrenNewsCell.m; sourceTree = "<group>"; };
+		85DF3F72177D980100DC0A7B /* WeiboNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboNewsCell.h; path = SNSCache/WeiboNewsCell.h; sourceTree = "<group>"; };
+		85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboNewsCell.m; path = SNSCache/WeiboNewsCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -675,6 +678,8 @@
 			children = (
 				85DF3F6E177D8FA700DC0A7B /* RenrenNewsCell.h */,
 				85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */,
+				85DF3F72177D980100DC0A7B /* WeiboNewsCell.h */,
+				85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */,
 			);
 			name = SNSCache;
 			sourceTree = "<group>";
@@ -828,6 +833,7 @@
 				858EE5EC177A92F4000FF384 /* WeiboViewController.m in Sources */,
 				858EE5EF177AAECB000FF384 /* WeixinViewController.m in Sources */,
 				85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */,
+				85DF3F74177D980100DC0A7B /* WeiboNewsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

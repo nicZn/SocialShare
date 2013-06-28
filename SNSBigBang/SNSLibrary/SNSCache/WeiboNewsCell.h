@@ -1,5 +1,5 @@
 //
-//  RenrenNewsCell.h
+//  WeiboNewsCell.h
 //  SNSBigBang
 //
 //  Created by 張 寧 on 2013/06/28.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RenrenNewsCell : NSObject
+@interface WeiboNewsCell : NSObject
 
 @property (nonatomic) NSInteger user_id;
 @property (nonatomic, strong) NSString *name;

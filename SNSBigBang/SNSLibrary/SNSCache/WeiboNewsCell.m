@@ -1,14 +1,14 @@
 //
-//  RenrenNewsCell.m
+//  WeiboNewsCell.m
 //  SNSBigBang
 //
 //  Created by 張 寧 on 2013/06/28.
 //  Copyright (c) 2013年 張 寧. All rights reserved.
 //
 
-#import "RenrenNewsCell.h"
+#import "WeiboNewsCell.h"
 
-@implementation RenrenNewsCell
+@implementation WeiboNewsCell
 
 @synthesize name;
 @synthesize headURL;
