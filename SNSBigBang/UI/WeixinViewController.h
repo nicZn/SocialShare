@@ -6,8 +6,7 @@
 //  Copyright (c) 2013年 張 寧. All rights reserved.
 //
 
-#import "ViewController.h"
 
-@interface WeixinViewController : ViewController
+@interface WeixinViewController : UIViewController
 
 @end

@@ -6,10 +6,9 @@
 //  Copyright (c) 2013年 張 寧. All rights reserved.
 //
 
-#import "ViewController.h"
 #import "SNSUtility.h"
 #import "SinaWeibo.h"
 
-@interface WeiboViewController : ViewController<SNSDelegate,SinaWeiboDelegate>
+@interface WeiboViewController : UIViewController<SNSDelegate,SinaWeiboDelegate>
 
 @end

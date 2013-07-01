@@ -8,15 +8,16 @@
 
 #import "RenrenViewController.h"
 
-@interface RenrenViewController ()
+@interface RenrenViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView *StatusTextView;
+@property (weak, nonatomic) IBOutlet UITableView *NewsTableView;
 
 @end
 
 @implementation RenrenViewController
 
-@synthesize StatusTextView;
+@synthesize NewsTableView;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,9 +42,6 @@
     [button setBackgroundColor:[UIColor redColor]];
     [button addTarget:self action:@selector(authUser:) forControlEvents:UIControlEventTouchUpInside];
     [[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
-    self.StatusTextView.layer.borderWidth = 1.0;
-    self.StatusTextView.layer.cornerRadius = 4.0f;
-    self.StatusTextView.layer.borderColor = [[UIColor redColor] CGColor];
 }
 
 
@@ -64,11 +62,24 @@
 }
 
 - (IBAction)sendStatus:(id)sender {
-    NSString * status = self.StatusTextView.text;
-    if (status != nil && status.length > 0) {
-        [[SNSUtility shareInstanse] sendRenrenStatus:status withDelegate:self];
-    }
+//    NSString * status = self.StatusTextView.text;
+//    if (status != nil && status.length > 0) {
+//        [[SNSUtility shareInstanse] sendRenrenStatus:status withDelegate:self];
+//    }
 }
+
+#pragma mark - table view delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
+// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
 #pragma mark - delegate
 #pragma mark - SNS AUTH
 -(void)authSuccess:(SNSType)type withInfo:(NSDictionary *)userInfo{
