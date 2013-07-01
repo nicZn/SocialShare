@@ -101,6 +101,7 @@
 		858EE5EF177AAECB000FF384 /* WeixinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EE177AAECA000FF384 /* WeixinViewController.m */; };
 		85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */; };
 		85DF3F74177D980100DC0A7B /* WeiboNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */; };
+		85EB0CDA178128800023291C /* RenrenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EB0CD9178128800023291C /* RenrenCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -267,6 +268,8 @@
 		85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenrenNewsCell.m; path = SNSCache/RenrenNewsCell.m; sourceTree = "<group>"; };
 		85DF3F72177D980100DC0A7B /* WeiboNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboNewsCell.h; path = SNSCache/WeiboNewsCell.h; sourceTree = "<group>"; };
 		85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboNewsCell.m; path = SNSCache/WeiboNewsCell.m; sourceTree = "<group>"; };
+		85EB0CD8178128800023291C /* RenrenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenrenCell.h; path = UI/Cell/RenrenCell.h; sourceTree = "<group>"; };
+		85EB0CD9178128800023291C /* RenrenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenrenCell.m; path = UI/Cell/RenrenCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -658,6 +661,7 @@
 		852C2F8817799AC4005C1121 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				85EB0CD41781281B0023291C /* Cell */,
 				852C2F8917799B00005C1121 /* RenrenViewController.h */,
 				852C2F8A17799B00005C1121 /* RenrenViewController.m */,
 				858EE5EA177A92F4000FF384 /* WeiboViewController.h */,
@@ -677,6 +681,15 @@
 				85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */,
 			);
 			name = SNSCache;
+			sourceTree = "<group>";
+		};
+		85EB0CD41781281B0023291C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				85EB0CD8178128800023291C /* RenrenCell.h */,
+				85EB0CD9178128800023291C /* RenrenCell.m */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -828,6 +841,7 @@
 				858EE5EF177AAECB000FF384 /* WeixinViewController.m in Sources */,
 				85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */,
 				85DF3F74177D980100DC0A7B /* WeiboNewsCell.m in Sources */,
+				85EB0CDA178128800023291C /* RenrenCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

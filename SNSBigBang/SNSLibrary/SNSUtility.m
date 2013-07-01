@@ -10,12 +10,16 @@
 #import "Renren.h"
 #import "SinaWeibo.h"
 #import "SinaWeiboRequest.h"
+#import "RenrenNewsCell.h"
 
 static SNSUtility * singleSNSUtility = nil;
 
 @interface SNSUtility()
 
 @property (nonatomic) SinaWeibo *weibo;
+@property (nonatomic, weak) id<SNSDelegate> renrenDelegate;
+@property (nonatomic, weak) id<SNSDelegate> weiboDelegate;
+@property (nonatomic, weak) id<SNSDelegate> weixinDelegate;
 
 @end
 
@@ -30,23 +34,45 @@ static SNSUtility * singleSNSUtility = nil;
     return singleSNSUtility;
 }
 
-#pragma mark - Renren
+#pragma mark - sns method
 
--(void) authRenrenWithDelegate:(id<SNSDelegate>)delegate{
-    if(![[Renren sharedRenren] isSessionValid]){
-        [[Renren sharedRenren] authorizationWithPermisson:[[NSArray alloc] initWithObjects:@"read_user_feed status_update", nil] andDelegate:singleSNSUtility];
-    }
-    else{
-        
+-(void)getNews:(SNSType) type withDelegate:(id<SNSDelegate>)delegate{
+    switch (type) {
+        case RenrenType:
+        {
+            if (!delegate) {
+                return ;
+            }
+            self.renrenDelegate = delegate;
+            if([[Renren sharedRenren] isSessionValid]){
+                NSMutableDictionary * params = [NSMutableDictionary dictionary];
+                [params setObject:@"feed.get" forKey:@"method"];
+                [params setObject:@"10" forKey:@"type"];
+                [[[Renren sharedRenren] requestWithParams:params andDelegate:singleSNSUtility] connect];
+            }else{
+                [[Renren sharedRenren] authorizationWithPermisson:[[NSArray alloc] initWithObjects:@"read_user_feed status_update", nil] andDelegate:singleSNSUtility];
+            }
+        }
+            break;
+        case WeiXinType:
+        {
+            
+        }
+            break;
+        case WeiboType:
+        {
+            
+        }
+            break;
+        default:
+            break;
     }
 }
 
--(void)getNewsForRenren{
-    NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    [params setObject:@"feed.get" forKey:@"method"];
-    [params setObject:@"10" forKey:@"type"];
-    [[[Renren sharedRenren] requestWithParams:params andDelegate:singleSNSUtility] connect];
+-(void)pushStatus:(NSString *)status withType:(SNSType)type andDelegate:(id<SNSDelegate>)delegate{
+    
 }
+
 
 -(void)sendRenrenStatus:(NSString *)status withDelegate:(id<SNSDelegate>) delegate{
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
@@ -86,11 +112,18 @@ static SNSUtility * singleSNSUtility = nil;
  */
 - (void)renren:(Renren *)renren requestDidReturnResponse:(ROResponse*)response{
     NSArray * info = [response rootObject];  // json response string
+    NSMutableArray * newsArray = [NSMutableArray array];
     for (NSDictionary *single in info) {
-        NSLog(@"%@",[single objectForKey:@"name"]);
-        
+        RenrenNewsCell *singleInfo = [[RenrenNewsCell alloc] init];
+        singleInfo.name = [single objectForKey:@"name"];
+        singleInfo.headURL = [single objectForKey:@"headurl"];
+        singleInfo.user_id = [[single objectForKey:@"actor_id"] integerValue];
+        singleInfo.content = [single objectForKey:@"message"];
+        [newsArray addObject:singleInfo];
     }
-
+    if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
+        [self.renrenDelegate receiveNews:newsArray];
+    }
 }
 
 /**
@@ -116,7 +149,10 @@ static SNSUtility * singleSNSUtility = nil;
  * @param renren 传回代理授权登录接口请求的Renren类型对象。
  */
 - (void)renrenDidLogin:(Renren *)renren{
-    NSLog(@"%@",renren);
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    [params setObject:@"feed.get" forKey:@"method"];
+    [params setObject:@"10" forKey:@"type"];
+    [[renren requestWithParams:params andDelegate:singleSNSUtility] connect];
 }
 
 /**

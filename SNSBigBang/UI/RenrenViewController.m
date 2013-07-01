@@ -7,16 +7,19 @@
 //
 
 #import "RenrenViewController.h"
+#import "RenrenCell.h"
 
 @interface RenrenViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *NewsTableView;
+@property (nonatomic) UITableView *NewsTableView;
+@property (nonatomic, strong) NSMutableArray *newsCache;
 
 @end
 
 @implementation RenrenViewController
 
 @synthesize NewsTableView;
+@synthesize newsCache;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,16 +35,24 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.NewsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+    self.NewsTableView.dataSource = self;
+    self.NewsTableView.delegate = self;
+    [self.view addSubview:self.NewsTableView];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [[[self navigationController] navigationBar] topItem].title = @"Renren";
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 40)];
-    [[button layer] setCornerRadius:8.0];
-    [button setTitle:@"Login" forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor redColor]];
-    [button addTarget:self action:@selector(authUser:) forControlEvents:UIControlEventTouchUpInside];
-    [[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
+//    [[[self navigationController] navigationBar] topItem].title = @"Renren";
+//    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 40)];
+//    [[button layer] setCornerRadius:8.0];
+//    [button setTitle:@"Login" forState:UIControlStateNormal];
+//    [button setBackgroundColor:[UIColor redColor]];
+//    [button addTarget:self action:@selector(authUser:) forControlEvents:UIControlEventTouchUpInside];
+//    [[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [[SNSUtility shareInstanse] getNews:RenrenType withDelegate:self];
 }
 
 
@@ -53,37 +64,37 @@
 
 #pragma mark - button Action
 
--(IBAction)authUser:(id)sender{
-    [[SNSUtility shareInstanse] authRenrenWithDelegate:self];
-}
-
--(IBAction)getNews:(id)sender{
-    [[SNSUtility shareInstanse] getNewsForRenren];
-}
-
-- (IBAction)sendStatus:(id)sender {
-//    NSString * status = self.StatusTextView.text;
-//    if (status != nil && status.length > 0) {
-//        [[SNSUtility shareInstanse] sendRenrenStatus:status withDelegate:self];
-//    }
-}
 
 #pragma mark - table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 64;
+}
+
+#pragma mark - table data delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return self.newsCache.count;
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    RenrenCell *cell = [[RenrenCell alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+    [cell loadDataFromCache:[self.newsCache objectAtIndex:indexPath.row]];
+    return cell;
 }
 
-#pragma mark - delegate
-#pragma mark - SNS AUTH
--(void)authSuccess:(SNSType)type withInfo:(NSDictionary *)userInfo{
-    
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+
+#pragma mark - sns delegate
+
+-(void)receiveNews:(NSMutableArray *)newsArray{
+    self.newsCache = newsArray;
+    [self.NewsTableView reloadData];
 }
 
 @end

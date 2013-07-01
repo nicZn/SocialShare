@@ -56,18 +56,11 @@
 
 #pragma mark - button Action
 
--(IBAction)loginWeibo:(id)sender{
-    [[SNSUtility shareInstanse] authWeiboWithDelegate:self];
+
+#pragma mark - sns delegate
+
+-(void)receiveNews:(NSMutableArray *)newsArray{
+    
 }
 
-- (IBAction)getNews:(id)sender {
-    [[SNSUtility shareInstanse] getNewsForWeibo:self];
-}
-
-- (IBAction)pushStatus:(id)sender {
-    NSString *status = self.statusTextView.text;
-    if (status != nil && status.length> 0) {
-        [[SNSUtility shareInstanse] pushStatus:status withDelegate:self];
-    }
-}
 @end
