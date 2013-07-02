@@ -34,6 +34,44 @@ static SNSUtility * singleSNSUtility = nil;
     return singleSNSUtility;
 }
 
+-(id)init{
+    self = [super init];
+    if (self) {
+        [self loadAuthInfo];
+    }
+    return self;
+}
+
+#pragma mark - auth info
+
+-(void)loadAuthInfo{
+    NSDictionary *sinaweiboInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"SinaWeiboAuthData"];
+    self.weibo = [[SinaWeibo alloc] initWithAppKey:WeiboAppKey appSecret:WeiboSecertKey appRedirectURI:WeiboRedirectURI andDelegate:self];
+    if ([sinaweiboInfo objectForKey:@"AccessTokenKey"] && [sinaweiboInfo objectForKey:@"ExpirationDateKey"] && [sinaweiboInfo objectForKey:@"UserIDKey"])
+    {
+        self.weibo.accessToken = [sinaweiboInfo objectForKey:@"AccessTokenKey"];
+        self.weibo.expirationDate = [sinaweiboInfo objectForKey:@"ExpirationDateKey"];
+        self.weibo.userID = [sinaweiboInfo objectForKey:@"UserIDKey"];
+    }
+}
+
+-(void)saveSinaAuthInfo{
+    
+    NSDictionary *authData = [NSDictionary dictionaryWithObjectsAndKeys:
+                              self.weibo.accessToken, @"AccessTokenKey",
+                              self.weibo.expirationDate, @"ExpirationDateKey",
+                              self.weibo.userID, @"UserIDKey",
+                              self.weibo.refreshToken, @"refresh_token", nil];
+    [[NSUserDefaults standardUserDefaults] setObject:authData forKey:@"SinaWeiboAuthData"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(void)removeSinaAuthInfo{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"SinaWeiboAuthData"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
 #pragma mark - sns method
 
 -(void)getNews:(SNSType) type withDelegate:(id<SNSDelegate>)delegate{
@@ -87,8 +125,8 @@ static SNSUtility * singleSNSUtility = nil;
 #pragma mark - Weibo
 
 -(void)authWeiboWithDelegate:(id<SNSDelegate>)delegate{
-    weibo = [[SinaWeibo alloc] initWithAppKey:WeiboAppKey appSecret:WeiboSecertKey appRedirectURI:WeiboRedirectURI andDelegate:singleSNSUtility];
-    [weibo logIn];
+//    weibo = 
+//    [weibo logIn];
 }
 
 -(void)getNewsForWeibo:(id<SNSDelegate>)delegate{
@@ -111,18 +149,21 @@ static SNSUtility * singleSNSUtility = nil;
  * @param response 传回接口请求的响应。
  */
 - (void)renren:(Renren *)renren requestDidReturnResponse:(ROResponse*)response{
-    NSArray * info = [response rootObject];  // json response string
-    NSMutableArray * newsArray = [NSMutableArray array];
-    for (NSDictionary *single in info) {
-        RenrenNewsCell *singleInfo = [[RenrenNewsCell alloc] init];
-        singleInfo.name = [single objectForKey:@"name"];
-        singleInfo.headURL = [single objectForKey:@"headurl"];
-        singleInfo.user_id = [[single objectForKey:@"actor_id"] integerValue];
-        singleInfo.content = [single objectForKey:@"message"];
-        [newsArray addObject:singleInfo];
-    }
-    if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
-        [self.renrenDelegate receiveNews:newsArray];
+    NSString *method = response.param.method;
+    if ([method isEqualToString:@"feed.get"] ) {
+        NSArray * info = [response rootObject];  // json response string
+        NSMutableArray * newsArray = [NSMutableArray array];
+        for (NSDictionary *single in info) {
+            RenrenNewsCell *singleInfo = [[RenrenNewsCell alloc] init];
+            singleInfo.name = [single objectForKey:@"name"];
+            singleInfo.headURL = [single objectForKey:@"headurl"];
+            singleInfo.user_id = [[single objectForKey:@"actor_id"] integerValue];
+            singleInfo.content = [single objectForKey:@"message"];
+            [newsArray addObject:singleInfo];
+        }
+        if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
+            [self.renrenDelegate receiveNews:newsArray];
+        }
     }
 }
 
@@ -175,12 +216,12 @@ static SNSUtility * singleSNSUtility = nil;
 #pragma mark - Weibo Delegate
 
 - (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo{
-    
+    [self saveSinaAuthInfo];
 }
 
 
 - (void)sinaweiboDidLogOut:(SinaWeibo *)sinaweibo{
-    
+    [self removeSinaAuthInfo];
 }
 
 
@@ -221,5 +262,7 @@ static SNSUtility * singleSNSUtility = nil;
 - (void)request:(SinaWeiboRequest *)request didFinishLoadingWithResult:(id)result{
     NSLog(@"get all result: %@",result);
 }
+
+
 
 @end
