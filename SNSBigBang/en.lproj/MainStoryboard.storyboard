@@ -11,60 +11,9 @@
                     <view key="view" contentMode="scaleToFill" id="MKF-xX-enc">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ar9-A5-K6R">
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Get News">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="getNews:" destination="e6x-1M-grg" eventType="touchUpInside" id="xNU-g9-LYa"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPL-Fu-hTm">
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="90" id="9hd-3y-hds"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kMi-5h-oKp">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="98" id="pDr-Tq-SIA"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="push">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pushStatus:" destination="e6x-1M-grg" eventType="touchUpInside" id="oYm-yT-6P1"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="fPL-Fu-hTm" firstAttribute="top" secondItem="Ar9-A5-K6R" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="0zX-aC-MN3"/>
-                            <constraint firstItem="kMi-5h-oKp" firstAttribute="top" secondItem="fPL-Fu-hTm" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="6qm-1B-l5h"/>
-                            <constraint firstItem="fPL-Fu-hTm" firstAttribute="leading" secondItem="MKF-xX-enc" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="DwW-Ss-Cnl"/>
-                            <constraint firstAttribute="trailing" secondItem="fPL-Fu-hTm" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="a5U-nb-bM6"/>
-                            <constraint firstAttribute="trailing" secondItem="Ar9-A5-K6R" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="cPY-xT-gzZ"/>
-                            <constraint firstAttribute="trailing" secondItem="kMi-5h-oKp" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="eOm-Yw-6cE"/>
-                            <constraint firstItem="Ar9-A5-K6R" firstAttribute="top" secondItem="MKF-xX-enc" secondAttribute="top" constant="20" symbolic="YES" type="default" id="z4J-pU-fad"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Weibo" id="w1p-fk-abs"/>
-                    <connections>
-                        <outlet property="statusTextView" destination="fPL-Fu-hTm" id="uQ4-Cm-uKo"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKx-m1-BHP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

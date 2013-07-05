@@ -27,6 +27,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        
     }
     return self;
 }
@@ -49,10 +51,11 @@
 //    [button setBackgroundColor:[UIColor redColor]];
 //    [button addTarget:self action:@selector(authUser:) forControlEvents:UIControlEventTouchUpInside];
 //    [[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
+    [[SNSUtility shareInstanse] getNews:RenrenType withDelegate:self];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [[SNSUtility shareInstanse] getNews:RenrenType withDelegate:self];
+    
 }
 
 

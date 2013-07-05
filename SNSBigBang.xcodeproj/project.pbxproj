@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8503287B1786B26C00C3774C /* WeiboCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8503287A1786B26C00C3774C /* WeiboCell.m */; };
 		852C2BFF177977AC005C1121 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 852C2BFE177977AC005C1121 /* UIKit.framework */; };
 		852C2C01177977AC005C1121 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 852C2C00177977AC005C1121 /* Foundation.framework */; };
 		852C2C03177977AC005C1121 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 852C2C02177977AC005C1121 /* CoreGraphics.framework */; };
@@ -105,6 +106,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		850328791786B26C00C3774C /* WeiboCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboCell.h; path = UI/Cell/WeiboCell.h; sourceTree = "<group>"; };
+		8503287A1786B26C00C3774C /* WeiboCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboCell.m; path = UI/Cell/WeiboCell.m; sourceTree = "<group>"; };
 		852C2BFB177977AC005C1121 /* SNSBigBang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SNSBigBang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		852C2BFE177977AC005C1121 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		852C2C00177977AC005C1121 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -688,6 +691,8 @@
 			children = (
 				85EB0CD8178128800023291C /* RenrenCell.h */,
 				85EB0CD9178128800023291C /* RenrenCell.m */,
+				850328791786B26C00C3774C /* WeiboCell.h */,
+				8503287A1786B26C00C3774C /* WeiboCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -842,6 +847,7 @@
 				85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */,
 				85DF3F74177D980100DC0A7B /* WeiboNewsCell.m in Sources */,
 				85EB0CDA178128800023291C /* RenrenCell.m in Sources */,
+				8503287B1786B26C00C3774C /* WeiboCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

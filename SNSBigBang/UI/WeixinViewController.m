@@ -31,13 +31,13 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [[[self navigationController] navigationBar] topItem].title = @"WeChat";
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 40)];
-    [[button layer] setCornerRadius:8.0];
-    [button setTitle:@"Login" forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor redColor]];
-    [button addTarget:self action:@selector(loginWeChat:) forControlEvents:UIControlEventTouchUpInside];
-	[[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
+//    [[[self navigationController] navigationBar] topItem].title = @"WeChat";
+//    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 40)];
+//    [[button layer] setCornerRadius:8.0];
+//    [button setTitle:@"Login" forState:UIControlStateNormal];
+//    [button setBackgroundColor:[UIColor redColor]];
+//    [button addTarget:self action:@selector(loginWeChat:) forControlEvents:UIControlEventTouchUpInside];
+//	[[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
 }
 
 - (void)didReceiveMemoryWarning

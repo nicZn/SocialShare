@@ -11,6 +11,7 @@
 #import "SinaWeibo.h"
 #import "SinaWeiboRequest.h"
 #import "RenrenNewsCell.h"
+#import "WeiboNewsCell.h"
 
 static SNSUtility * singleSNSUtility = nil;
 
@@ -92,12 +93,22 @@ static SNSUtility * singleSNSUtility = nil;
             }
         }
             break;
-        case WeiXinType:
+        case WeiboType:
         {
-            
+            if (!delegate) {
+                return ;
+            }
+            self.weiboDelegate = delegate;
+            if([self.weibo isAuthValid]){
+                NSMutableDictionary * params = [NSMutableDictionary dictionary];
+                [params setObject:WeiboAppKey forKey:@"appkey"];
+                [[weibo requestWithURL:@"statuses/friends_timeline.json" params:params httpMethod:@"GET" delegate:singleSNSUtility] connect];
+            }else{
+                [self.weibo logIn];
+            }
         }
             break;
-        case WeiboType:
+        case WeiXinType:
         {
             
         }
@@ -124,10 +135,6 @@ static SNSUtility * singleSNSUtility = nil;
 
 #pragma mark - Weibo
 
--(void)authWeiboWithDelegate:(id<SNSDelegate>)delegate{
-//    weibo = 
-//    [weibo logIn];
-}
 
 -(void)getNewsForWeibo:(id<SNSDelegate>)delegate{
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
@@ -149,8 +156,6 @@ static SNSUtility * singleSNSUtility = nil;
  * @param response 传回接口请求的响应。
  */
 - (void)renren:(Renren *)renren requestDidReturnResponse:(ROResponse*)response{
-    NSString *method = response.param.method;
-    if ([method isEqualToString:@"feed.get"] ) {
         NSArray * info = [response rootObject];  // json response string
         NSMutableArray * newsArray = [NSMutableArray array];
         for (NSDictionary *single in info) {
@@ -164,7 +169,6 @@ static SNSUtility * singleSNSUtility = nil;
         if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
             [self.renrenDelegate receiveNews:newsArray];
         }
-    }
 }
 
 /**
@@ -260,7 +264,19 @@ static SNSUtility * singleSNSUtility = nil;
 }
 
 - (void)request:(SinaWeiboRequest *)request didFinishLoadingWithResult:(id)result{
-    NSLog(@"get all result: %@",result);
+    NSDictionary *dataDict = (NSDictionary *)result;
+    NSArray *statusArray = [dataDict objectForKey:@"statuses"];
+    NSMutableArray *statusInfo = [NSMutableArray array];
+    for (NSDictionary *dict in statusArray) {
+        WeiboNewsCell *cell = [[WeiboNewsCell alloc] init];
+        cell.name = [[dict objectForKey:@"user"] objectForKey:@"screen_name"];
+        cell.content = [dict objectForKey:@"text"];
+        cell.headURL = [[dict objectForKey:@"user"] objectForKey:@"profile_image_url"];
+        cell.user_id = [[[dict objectForKey:@"user"] objectForKey:@"id"] integerValue];
+        cell.time = [dict objectForKey:@"created_at"];
+        [statusInfo addObject:cell];
+    }
+    [self.weiboDelegate receiveNews:statusInfo];
 }
 
 

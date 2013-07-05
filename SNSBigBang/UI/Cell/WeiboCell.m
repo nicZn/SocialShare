@@ -1,14 +1,14 @@
 //
-//  RenrenCell.m
+//  WeiboCell.m
 //  SNSBigBang
 //
-//  Created by 張 寧 on 2013/07/01.
+//  Created by 張 寧 on 2013/07/05.
 //  Copyright (c) 2013年 張 寧. All rights reserved.
 //
 
-#import "RenrenCell.h"
+#import "WeiboCell.h"
 
-@interface RenrenCell()
+@interface WeiboCell()
 
 @property (nonatomic, strong) UIImage *avatarImage;
 @property (nonatomic, strong) UIImageView *avatarView;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation RenrenCell
+@implementation WeiboCell
 
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -46,7 +46,7 @@
     // Configure the view for the selected state
 }
 
--(void)loadDataFromCache:(RenrenNewsCell *)dataCell{
+-(void)loadDataFromCache:(WeiboNewsCell *)dataCell{
     NSLog(@"%@",dataCell);
     self.avatarImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:dataCell.headURL]]];
     [self.avatarView setContentMode:UIViewContentModeScaleToFill];
