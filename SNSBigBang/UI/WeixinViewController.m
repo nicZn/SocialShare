@@ -28,6 +28,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    if (![WXApi isWXAppInstalled] || ![WXApi isWXAppSupportApi]) {
+        NSLog(@"%@",[WXApi getWXAppInstallUrl]);
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[WXApi getWXAppInstallUrl]]];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -48,8 +52,5 @@
 
 #pragma mark - Button Action
 
--(IBAction)loginWeChat:(id)sender{
-    
-}
 
 @end

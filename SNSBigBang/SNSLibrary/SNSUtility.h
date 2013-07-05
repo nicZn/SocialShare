@@ -11,7 +11,7 @@
 #import "SinaWeibo.h"
 
 //Weixin config
-#define WeixinAppId  @"wxd25b2dd6207a36f7"
+//#define WeixinAppId  @"wxd25b2dd6207a36f7"
 #define WeixinAppKey @"f36df7f35cc9385a9b260b45210898f4"
 
 
