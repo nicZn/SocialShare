@@ -17,10 +17,11 @@ static const NSTimeInterval kTimeoutInterval = 60.0;
 @property (nonatomic, strong)NSString *downloadFilePath;
 @property (nonatomic, strong)NSMutableDictionary *param;
 @property (nonatomic, strong)NSMutableURLRequest *request;
-@property (nonatomic, strong)NSURLConnection *connection;
 @property (nonatomic, strong)NSMutableData *receiveData;
 @property (nonatomic, strong)NSMutableDictionary *userInfo;
 @property (nonatomic)BOOL isDownloadFile;
+
+@property (nonatomic, weak)id<HttpRequestDelegate>requestDelegate;
 
 @end
 
@@ -31,9 +32,9 @@ static const NSTimeInterval kTimeoutInterval = 60.0;
 @synthesize downloadFilePath = _downloadFilePath;
 @synthesize param;
 @synthesize request;
-@synthesize connection;
 @synthesize receiveData;
 @synthesize isDownloadFile;
+@synthesize requestDelegate;
 
 -(id)initWithURL:(NSString *)url andMethod:(NSString *)method{
     self = [super init];
@@ -44,7 +45,7 @@ static const NSTimeInterval kTimeoutInterval = 60.0;
         [self.request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
         [self.request setTimeoutInterval:kTimeoutInterval];
         [self.request setHTTPShouldHandleCookies:NO];
-        self.receiveData = nil;
+        self.receiveData = [[NSMutableData alloc] init];
         self.isDownloadFile = NO;
     }
     return self;
@@ -71,14 +72,30 @@ static const NSTimeInterval kTimeoutInterval = 60.0;
     }
 }
 
--(void)connect{
+-(void)setDelegate:(id<HttpRequestDelegate>)delegate{
+    self.requestDelegate = delegate;
+}
+
+-(void)start{
     if (self.param) {
         [self.request setAllHTTPHeaderFields:self.param];
     }
     [NSURLConnection sendAsynchronousRequest:self.request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response ,NSData* data, NSError* error ){
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (error || httpResponse.statusCode != 200) {
+            if ([self.requestDelegate respondsToSelector:@selector(connectionFailed:withError:)]) {
+                [self.requestDelegate connectionFailed:self withError:error];
+            }
+        }else{
+            if (self.isDownloadFile) {
+                [data writeToFile:self.downloadFilePath atomically:YES];
+                if ([self.requestDelegate respondsToSelector:@selector(connectionFinish:)]) {
+                    [self.requestDelegate connectionFinish:self];
+                }
+            }
+        }
         
-    }];
-    
+    }];    
 }
 
 

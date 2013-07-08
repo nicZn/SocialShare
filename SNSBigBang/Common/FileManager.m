@@ -132,4 +132,8 @@ static NSString *s_userPoolDirectory = nil;
     return nil;
 }
 
+-(BOOL)isFileExist:(NSString *)filePath{
+    return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+}
+
 @end

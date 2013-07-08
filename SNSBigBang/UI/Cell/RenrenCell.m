@@ -52,7 +52,12 @@
     NSLog(@"%@",dataCell);
     self.avatarFile = [[[FileManager shareInstance] getAvatarDirectory:RenrenType] stringByAppendingPathComponent:[[dataCell.headURL componentsSeparatedByString:@"/"] lastObject]];
     NSLog(@"renren avatarPath:%@",self.avatarFile);
-    [[HttpManager shareInstance] downloadAvatar:dataCell.headURL path:self.avatarFile];
+    if ([[FileManager shareInstance] isFileExist:self.avatarFile]) {
+        self.avatarView.image = [UIImage imageWithContentsOfFile:self.avatarFile];
+    }else{
+        [[HttpManager shareInstance] downloadAvatar:dataCell.headURL path:self.avatarFile];
+    }
+    
     UIFont *font = [UIFont fontWithName:@"Arial" size:12.0];
     CGSize size = CGSizeMake(320, 960);
     CGSize nameLabelSize = [dataCell.name sizeWithFont:font constrainedToSize:size];

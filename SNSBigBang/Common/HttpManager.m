@@ -13,12 +13,15 @@ static HttpManager *singletonHttpManager = nil;
 
 @interface HttpManager()<HttpRequestDelegate>
 
-@property (nonatomic, strong)dispatch_queue_t dispatch_queue;
+@property (nonatomic, strong)NSOperationQueue *operationQueue;
+
+@property (nonatomic, weak)id<HttpManagerDelegate> delegate;
+
 @end
 
 @implementation HttpManager
 
-@synthesize dispatch_queue;
+@synthesize operationQueue;
 
 +(HttpManager *)shareInstance{
     if (singletonHttpManager == nil) {
@@ -30,17 +33,16 @@ static HttpManager *singletonHttpManager = nil;
 -(id)init{
     self = [super init];
     if (self) {
-        self.dispatch_queue = dispatch_queue_create("Http donwload queue", NULL);
+        self.operationQueue = [[NSOperationQueue alloc] init];
     }
     return self;
 }
 
 -(void)downloadAvatar:(NSString *)urlString path:(NSString *)filePath{
-    dispatch_async(self.dispatch_queue, ^(){
-        HttpRequest * request = [[HttpRequest alloc] initWithURL:urlString andMethod:@"GET"];
-        [request setDownloadFilePath:filePath];
-        [request connect];
-    });
+    HttpRequest * request = [[HttpRequest alloc] initWithURL:urlString andMethod:@"GET"];
+    [request setDownloadFilePath:filePath];
+    [request setDelegate:self];
+    [self.operationQueue addOperation:request];
 }
 
 

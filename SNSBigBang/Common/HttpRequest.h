@@ -8,19 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-
-@interface HttpRequest : NSObject
-
--(id)initWithURL:(NSString *)url andMethod:(NSString *)method;
-
--(void)setDownloadFilePath:(NSString *)filePath;
-
--(void)setParams:(NSDictionary *)params;
-
--(void)connect;
-
-@end
-
+@class HttpRequest;
 @protocol HttpRequestDelegate <NSObject>
 
 @required
@@ -33,3 +21,17 @@
 -(void)downloadedLength:(NSInteger)finishedLength withTotalLength:(NSInteger)totalLength;
 
 @end
+
+@interface HttpRequest : NSOperation
+
+-(id)initWithURL:(NSString *)url andMethod:(NSString *)method;
+
+-(void)setDownloadFilePath:(NSString *)filePath;
+
+-(void)setParams:(NSDictionary *)params;
+
+-(void)setDelegate:(id<HttpRequestDelegate>)delegate;
+
+@end
+
+

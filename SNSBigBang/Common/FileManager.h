@@ -14,4 +14,6 @@
 + (BOOL)tryToRelease;
 
 -(NSString *)getAvatarDirectory:(SNSType)type;
+
+-(BOOL)isFileExist:(NSString *)filePath;
 @end
