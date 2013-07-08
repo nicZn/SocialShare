@@ -7,6 +7,8 @@
 //
 
 #import "SNSUtility.h"
+#import "Config.h"
+
 #import "RennSDK/RennSDK.h"
 #import "SinaWeibo.h"
 #import "SinaWeiboRequest.h"
@@ -84,9 +86,16 @@ static SNSUtility * singleSNSUtility = nil;
 }
 
 
+-(void)getSelfInfo:(SNSType)type withDelegate:(id<SNSDelegate>)delegate{
+    self.renrenDelegate = delegate;
+    GetUserParam * userParam = [[GetUserParam alloc] init];
+    userParam.userId = [RennClient uid];
+    [RennClient sendAsynRequest:userParam delegate:self];
+}
+
 #pragma mark - sns method
 
--(void)getNews:(SNSType) type withDelegate:(id<SNSDelegate>)delegate{
+-(void)getNews:(SNSType)type withDelegate:(id<SNSDelegate>)delegate{
     switch (type) {
         case RenrenType:
         {
@@ -116,7 +125,7 @@ static SNSUtility * singleSNSUtility = nil;
             }
         }
             break;
-        case WeiXinType:
+        case WeChatType:
         {
             
         }
@@ -128,7 +137,6 @@ static SNSUtility * singleSNSUtility = nil;
 
 -(void)sendRennGetFeed{
     ListFeedParam *param = [[ListFeedParam alloc] init];
-//    [param setFeedType:@"10,20"];
     [param setPageSize:10];
     [RennClient sendAsynRequest:param delegate:self];
 }
@@ -182,6 +190,9 @@ static SNSUtility * singleSNSUtility = nil;
         if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
             [self.renrenDelegate receiveNews:newsArray];
         }
+    }
+    else if([service.type isEqualToString:kRennServiceTypeGetUser]){
+        NSLog(@"renren user info:%@",response);
     }
 }
 

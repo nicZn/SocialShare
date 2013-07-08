@@ -22,11 +22,7 @@
 #define WeiboSecertKey   @"1ae5122b9dfe1c102aae56cc33f98b67"
 #define WeiboRedirectURI @"http://www.sina.com"
 
-typedef enum {
-    RenrenType = 0,
-    WeiXinType = 1,
-    WeiboType  = 2
-    } SNSType;
+
 
 @protocol SNSDelegate <NSObject>
 
@@ -41,6 +37,7 @@ typedef enum {
 
 +(SNSUtility *)shareInstanse;
 
+-(void)getSelfInfo:(SNSType)type withDelegate:(id<SNSDelegate>)delegate;
 -(void)getNews:(SNSType) type withDelegate:(id<SNSDelegate>)delegate;
 -(void)pushStatus:(NSString *)status withType:(SNSType)type andDelegate:(id<SNSDelegate>)delegate ;
 @end

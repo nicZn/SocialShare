@@ -31,6 +31,7 @@
 		8547A350178A579400D0C616 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8547A34F178A579400D0C616 /* MainViewController.m */; };
 		8547A353178A5E0800D0C616 /* RennSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8547A351178A5E0800D0C616 /* RennSDK.framework */; };
 		8547A354178A5E0800D0C616 /* RennSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8547A352178A5E0800D0C616 /* RennSDK.bundle */; };
+		855082FD178A93EE007BACB3 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 855082FC178A93EE007BACB3 /* FileManager.m */; };
 		858EE5EC177A92F4000FF384 /* WeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EB177A92F4000FF384 /* WeiboViewController.m */; };
 		858EE5EF177AAECB000FF384 /* WeixinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EE177AAECA000FF384 /* WeixinViewController.m */; };
 		85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */; };
@@ -78,6 +79,9 @@
 		8547A34F178A579400D0C616 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		8547A351178A5E0800D0C616 /* RennSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RennSDK.framework; sourceTree = "<group>"; };
 		8547A352178A5E0800D0C616 /* RennSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RennSDK.bundle; sourceTree = "<group>"; };
+		855082FB178A93EE007BACB3 /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileManager.h; path = Common/FileManager.h; sourceTree = "<group>"; };
+		855082FC178A93EE007BACB3 /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileManager.m; path = Common/FileManager.m; sourceTree = "<group>"; };
+		855082FE178A9A8E007BACB3 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Config.h; path = Common/Config.h; sourceTree = "<group>"; };
 		858EE5EA177A92F4000FF384 /* WeiboViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboViewController.h; path = UI/WeiboViewController.h; sourceTree = "<group>"; };
 		858EE5EB177A92F4000FF384 /* WeiboViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboViewController.m; path = UI/WeiboViewController.m; sourceTree = "<group>"; };
 		858EE5ED177AAECA000FF384 /* WeixinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeixinViewController.h; path = UI/WeixinViewController.h; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 		852C2C04177977AC005C1121 /* SNSBigBang */ = {
 			isa = PBXGroup;
 			children = (
+				855082F7178A92BF007BACB3 /* Common */,
 				852C2DC617797D72005C1121 /* SNSLibrary */,
 				852C2F8817799AC4005C1121 /* UI */,
 				8547A34D178A576700D0C616 /* Main */,
@@ -253,6 +258,16 @@
 			name = Main;
 			sourceTree = "<group>";
 		};
+		855082F7178A92BF007BACB3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				855082FB178A93EE007BACB3 /* FileManager.h */,
+				855082FC178A93EE007BACB3 /* FileManager.m */,
+				855082FE178A9A8E007BACB3 /* Config.h */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		85DF3F6D177D8F6300DC0A7B /* SNSCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,6 +373,7 @@
 				85EB0CDA178128800023291C /* RenrenCell.m in Sources */,
 				8503287B1786B26C00C3774C /* WeiboCell.m in Sources */,
 				8547A350178A579400D0C616 /* MainViewController.m in Sources */,
+				855082FD178A93EE007BACB3 /* FileManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

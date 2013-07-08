@@ -45,33 +45,42 @@
 #pragma mark - tabbar controller 
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
-    switch (self.selectedIndex + 1) {
+    
+    return YES;
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+    NSString *title = @"";
+    switch (self.selectedIndex) {
+        case 0:
+        {
+            title = @"Renren";
+        }
+            break;
         case 1:
         {
-            [[[self navigationController] navigationBar] topItem].title = @"Weibo";
-            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 40)];
-//            [[button layer] setCornerRadius:8.0];
-            [button setTitle:@"Login" forState:UIControlStateNormal];
-            [button setBackgroundColor:[UIColor redColor]];
+            title = @"Weibo";
         }
             break;
         case 2:
         {
-            [[[self navigationController] navigationBar] topItem].title = @"WeChat";
-            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 40)];
-//            [[button layer] setCornerRadius:8.0];
-            [button setTitle:@"Login" forState:UIControlStateNormal];
-            [button setBackgroundColor:[UIColor redColor]];
+            title = @"WeChat";
+        }
+            break;
+        case 3:
+        {
+            title = @"Setting";
         }
             break;
             
         default:
             break;
     }
-    return YES;
-}
-
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+    [[[self navigationController] navigationBar] topItem].title = title;
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 40)];
+    //            [[button layer] setCornerRadius:8.0];
+    [button setTitle:@"Login" forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor redColor]];
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController willBeginCustomizingViewControllers:(NSArray *)viewControllers{

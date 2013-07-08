@@ -47,12 +47,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SNSBigBang/SNSLibrary/SNSUtility.m"
-         timestampString = "394954396.432739"
+         timestampString = "394956955.484881"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "190"
-         endingLineNumber = "190"
-         landmarkName = "-rennService:requestFailWithError:"
+         startingLineNumber = "193"
+         endingLineNumber = "193"
+         landmarkName = "-rennService:requestSuccessWithResponse:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
