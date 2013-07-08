@@ -51,7 +51,7 @@
 //    [button setBackgroundColor:[UIColor redColor]];
 //    [button addTarget:self action:@selector(authUser:) forControlEvents:UIControlEventTouchUpInside];
 //    [[[[self navigationController] navigationBar] topItem] setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:button]];
-    [[SNSUtility shareInstanse] getSelfInfo:RenrenType withDelegate:self];
+    [[SNSUtility shareInstanse] getNews:RenrenType withDelegate:self];
 }
 
 -(void)viewDidAppear:(BOOL)animated{

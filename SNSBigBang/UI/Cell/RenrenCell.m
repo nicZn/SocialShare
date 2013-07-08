@@ -7,10 +7,12 @@
 //
 
 #import "RenrenCell.h"
+#import "HttpManager.h"
+#import "FileManager.h"
 
-@interface RenrenCell()
+@interface RenrenCell()<HttpManagerDelegate>
 
-@property (nonatomic, strong) UIImage *avatarImage;
+@property (nonatomic, strong) NSString *avatarFile;
 @property (nonatomic, strong) UIImageView *avatarView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *statusLabel;
@@ -48,9 +50,9 @@
 
 -(void)loadDataFromCache:(RenrenNewsCell *)dataCell{
     NSLog(@"%@",dataCell);
-    self.avatarImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:dataCell.headURL]]];
-    [self.avatarView setContentMode:UIViewContentModeScaleToFill];
-    self.avatarView.image = self.avatarImage;
+    self.avatarFile = [[[FileManager shareInstance] getAvatarDirectory:RenrenType] stringByAppendingPathComponent:[[dataCell.headURL componentsSeparatedByString:@"/"] lastObject]];
+    NSLog(@"renren avatarPath:%@",self.avatarFile);
+    [[HttpManager shareInstance] downloadAvatar:dataCell.headURL path:self.avatarFile];
     UIFont *font = [UIFont fontWithName:@"Arial" size:12.0];
     CGSize size = CGSizeMake(320, 960);
     CGSize nameLabelSize = [dataCell.name sizeWithFont:font constrainedToSize:size];
@@ -68,6 +70,14 @@
     self.statusLabel.font = font;
     self.statusLabel.text = dataCell.content;
     [self addSubview:self.statusLabel];
+    
+}
+
+-(void)downloadFail{
+    
+}
+
+-(void)downloadFinish{
     
 }
 

@@ -34,10 +34,10 @@
             </objects>
             <point key="canvasLocation" x="824" y="623"/>
         </scene>
-        <!--Weixin View Controller - Winxin-->
+        <!--We Chat View Controller - Winxin-->
         <scene sceneID="PYH-M8-vSD">
             <objects>
-                <viewController id="sEa-qS-CCh" customClass="WeixinViewController" sceneMemberID="viewController">
+                <viewController id="sEa-qS-CCh" customClass="WeChatViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K2C-5E-ePh">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

@@ -46,13 +46,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "SNSBigBang/SNSLibrary/SNSUtility.m"
-         timestampString = "394956955.484881"
+         filePath = "SNSBigBang/Common/HttpManager.m"
+         timestampString = "394965669.598838"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "193"
-         endingLineNumber = "193"
-         landmarkName = "-rennService:requestSuccessWithResponse:"
+         startingLineNumber = "50"
+         endingLineNumber = "50"
+         landmarkName = "-connectionFinish:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

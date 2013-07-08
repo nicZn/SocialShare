@@ -7,6 +7,6 @@
 //
 
 
-@interface WeixinViewController : UIViewController
+@interface WeChatViewController : UIViewController
 
 @end

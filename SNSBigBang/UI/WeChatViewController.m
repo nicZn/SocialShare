@@ -6,14 +6,14 @@
 //  Copyright (c) 2013年 張 寧. All rights reserved.
 //
 
-#import "WeixinViewController.h"
+#import "WeChatViewController.h"
 #import "WXApi.h"
 
-@interface WeixinViewController ()
+@interface WeChatViewController ()
 
 @end
 
-@implementation WeixinViewController
+@implementation WeChatViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
