@@ -15,12 +15,3 @@
 -(void)downloadAvatar:(NSString *)urlString path:(NSString *)filePath;
 
 @end
-
-
-@protocol HttpManagerDelegate <NSObject>
-
--(void)downloadFinish;
-
--(void)downloadFail;
-
-@end

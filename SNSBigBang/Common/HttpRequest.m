@@ -76,6 +76,15 @@ static const NSTimeInterval kTimeoutInterval = 60.0;
     self.requestDelegate = delegate;
 }
 
+-(NSString *)getDownloadFilePath{
+    if (isDownloadFile) {
+        return _downloadFilePath;
+    }
+    else{
+        return nil;
+    }
+}
+
 -(void)start{
     if (self.param) {
         [self.request setAllHTTPHeaderFields:self.param];

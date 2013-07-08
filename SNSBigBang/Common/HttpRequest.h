@@ -32,6 +32,8 @@
 
 -(void)setDelegate:(id<HttpRequestDelegate>)delegate;
 
+-(NSString *)getDownloadFilePath;
+
 @end
 
 

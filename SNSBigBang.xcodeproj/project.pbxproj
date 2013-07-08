@@ -34,6 +34,7 @@
 		855082FD178A93EE007BACB3 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 855082FC178A93EE007BACB3 /* FileManager.m */; };
 		85508301178A9DB6007BACB3 /* HttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85508300178A9DB6007BACB3 /* HttpManager.m */; };
 		85508304178AA530007BACB3 /* HttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 85508303178AA530007BACB3 /* HttpRequest.m */; };
+		85508307178ACBC1007BACB3 /* NZNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 85508306178ACBC1007BACB3 /* NZNotificationCenter.m */; };
 		858EE5EC177A92F4000FF384 /* WeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EB177A92F4000FF384 /* WeiboViewController.m */; };
 		858EE5EF177AAECB000FF384 /* WeChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EE177AAECA000FF384 /* WeChatViewController.m */; };
 		85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */; };
@@ -88,6 +89,8 @@
 		85508300178A9DB6007BACB3 /* HttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HttpManager.m; path = Common/HttpManager.m; sourceTree = "<group>"; };
 		85508302178AA530007BACB3 /* HttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HttpRequest.h; path = Common/HttpRequest.h; sourceTree = "<group>"; };
 		85508303178AA530007BACB3 /* HttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HttpRequest.m; path = Common/HttpRequest.m; sourceTree = "<group>"; };
+		85508305178ACBC1007BACB3 /* NZNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZNotificationCenter.h; path = Common/NZNotificationCenter.h; sourceTree = "<group>"; };
+		85508306178ACBC1007BACB3 /* NZNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZNotificationCenter.m; path = Common/NZNotificationCenter.m; sourceTree = "<group>"; };
 		858EE5EA177A92F4000FF384 /* WeiboViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboViewController.h; path = UI/WeiboViewController.h; sourceTree = "<group>"; };
 		858EE5EB177A92F4000FF384 /* WeiboViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboViewController.m; path = UI/WeiboViewController.m; sourceTree = "<group>"; };
 		858EE5ED177AAECA000FF384 /* WeChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeChatViewController.h; path = UI/WeChatViewController.h; sourceTree = "<group>"; };
@@ -267,6 +270,8 @@
 		855082F7178A92BF007BACB3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				85508305178ACBC1007BACB3 /* NZNotificationCenter.h */,
+				85508306178ACBC1007BACB3 /* NZNotificationCenter.m */,
 				855082FB178A93EE007BACB3 /* FileManager.h */,
 				855082FC178A93EE007BACB3 /* FileManager.m */,
 				855082FE178A9A8E007BACB3 /* Config.h */,
@@ -386,6 +391,7 @@
 				855082FD178A93EE007BACB3 /* FileManager.m in Sources */,
 				85508301178A9DB6007BACB3 /* HttpManager.m in Sources */,
 				85508304178AA530007BACB3 /* HttpRequest.m in Sources */,
+				85508307178ACBC1007BACB3 /* NZNotificationCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

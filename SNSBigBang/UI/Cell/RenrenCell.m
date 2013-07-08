@@ -9,8 +9,9 @@
 #import "RenrenCell.h"
 #import "HttpManager.h"
 #import "FileManager.h"
+#import "NZNotificationCenter.h"
 
-@interface RenrenCell()<HttpManagerDelegate>
+@interface RenrenCell()
 
 @property (nonatomic, strong) NSString *avatarFile;
 @property (nonatomic, strong) UIImageView *avatarView;
@@ -55,6 +56,7 @@
     if ([[FileManager shareInstance] isFileExist:self.avatarFile]) {
         self.avatarView.image = [UIImage imageWithContentsOfFile:self.avatarFile];
     }else{
+        [[NZNotificationCenter shareInstance] addObserver:self forNotification:@"avatarDownloadFinished" withSelector:@selector(avatarDownloadFinished:)];
         [[HttpManager shareInstance] downloadAvatar:dataCell.headURL path:self.avatarFile];
     }
     
@@ -78,12 +80,15 @@
     
 }
 
--(void)downloadFail{
-    
-}
+#pragma mark - Notification method
 
--(void)downloadFinish{
-    
+-(void)avatarDownloadFinished:(NSNotification *)notification{
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *avatarPath = [userInfo objectForKey:@"downloadFilePath"];
+    if (avatarPath != nil && [self.avatarFile isEqualToString:avatarPath]) {
+        [[NZNotificationCenter shareInstance] removeObserver:self forNotification:@"avatarDownloadFinished"];
+        self.avatarView.image = [UIImage imageWithContentsOfFile:self.avatarFile];
+    }
 }
 
 @end

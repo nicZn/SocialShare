@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "NZNotificationCenter.h"
 
 
 @implementation AppDelegate
@@ -14,6 +15,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [NZNotificationCenter shareInstance];
     [WXApi registerApp:@"wxd25b2dd6207a36f7"];
     return YES;
 }

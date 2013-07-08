@@ -8,6 +8,7 @@
 
 #import "HttpManager.h"
 #import "HttpRequest.h"
+#import "NZNotificationCenter.h"
 
 static HttpManager *singletonHttpManager = nil;
 
@@ -15,7 +16,6 @@ static HttpManager *singletonHttpManager = nil;
 
 @property (nonatomic, strong)NSOperationQueue *operationQueue;
 
-@property (nonatomic, weak)id<HttpManagerDelegate> delegate;
 
 @end
 
@@ -50,6 +50,7 @@ static HttpManager *singletonHttpManager = nil;
 
 -(void)connectionFinish:(HttpRequest *)request{
     NSLog(@"finish request:%@",request);
+    [[NZNotificationCenter shareInstance] postNotification:@"avatarDownloadFinished" withUserInfo:[NSDictionary dictionaryWithObject:[request getDownloadFilePath] forKey:@"downloadFilePath"] waitUtilDone:NO];
 }
 
 -(void)connectionFailed:(HttpRequest *)request withError:(NSError *)error{
