@@ -79,10 +79,10 @@
             </objects>
             <point key="canvasLocation" x="-256" y="2"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main View Controller-->
         <scene sceneID="vC8-1j-gQd">
             <objects>
-                <tabBarController definesPresentationContext="YES" id="7sC-kG-stb" sceneMemberID="viewController">
+                <tabBarController definesPresentationContext="YES" id="7sC-kG-stb" customClass="MainViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="9dA-kj-YxS"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="08f-uT-gE0">
@@ -102,20 +102,6 @@
             <point key="canvasLocation" x="248" y="2"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="RenrenViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RenrenViewController.h"/>
-        </class>
-        <class className="WeiboViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WeiboViewController.h"/>
-        </class>
-        <class className="WeixinViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WeixinViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="loginWeChat:"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

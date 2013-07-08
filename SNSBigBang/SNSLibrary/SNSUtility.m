@@ -7,26 +7,34 @@
 //
 
 #import "SNSUtility.h"
-#import "Renren.h"
+#import "RennSDK/RennSDK.h"
 #import "SinaWeibo.h"
 #import "SinaWeiboRequest.h"
 #import "RenrenNewsCell.h"
 #import "WeiboNewsCell.h"
 
+//Renren config
+#define RenrenAppId     @"237526"
+#define RenrenAppKey    @"7627857571a64196bdf72f5e33762869"
+#define RenrenSecertKey @"731a2b281dcd4e8fa5148dd9b7e00755"
+
 static SNSUtility * singleSNSUtility = nil;
 
-@interface SNSUtility()
+@interface SNSUtility()<RennLoginDelegate,RennServiveDelegate,SinaWeiboDelegate,SinaWeiboRequestDelegate,SinaWeiboAuthorizeViewDelegate>
 
 @property (nonatomic) SinaWeibo *weibo;
 @property (nonatomic, weak) id<SNSDelegate> renrenDelegate;
 @property (nonatomic, weak) id<SNSDelegate> weiboDelegate;
-@property (nonatomic, weak) id<SNSDelegate> weixinDelegate;
+@property (nonatomic, weak) id<SNSDelegate> weChatDelegate;
 
 @end
 
 @implementation SNSUtility
 
 @synthesize weibo;
+@synthesize renrenDelegate;
+@synthesize weiboDelegate;
+@synthesize weChatDelegate;
 
 +(SNSUtility *)shareInstanse{
     if(singleSNSUtility == nil){
@@ -46,6 +54,9 @@ static SNSUtility * singleSNSUtility = nil;
 #pragma mark - auth info
 
 -(void)loadAuthInfo{
+    [RennClient initWithAppId:RenrenAppId apiKey:RenrenAppKey secretKey:RenrenSecertKey];
+    [RennClient setScope:@"read_user_blog read_user_photo read_user_status read_user_album read_user_comment read_user_share publish_blog publish_share send_notification photo_upload status_update create_album publish_comment publish_feed operate_like"];
+    
     NSDictionary *sinaweiboInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"SinaWeiboAuthData"];
     self.weibo = [[SinaWeibo alloc] initWithAppKey:WeiboAppKey appSecret:WeiboSecertKey appRedirectURI:WeiboRedirectURI andDelegate:self];
     if ([sinaweiboInfo objectForKey:@"AccessTokenKey"] && [sinaweiboInfo objectForKey:@"ExpirationDateKey"] && [sinaweiboInfo objectForKey:@"UserIDKey"])
@@ -83,13 +94,10 @@ static SNSUtility * singleSNSUtility = nil;
                 return ;
             }
             self.renrenDelegate = delegate;
-            if([[Renren sharedRenren] isSessionValid]){
-                NSMutableDictionary * params = [NSMutableDictionary dictionary];
-                [params setObject:@"feed.get" forKey:@"method"];
-                [params setObject:@"10" forKey:@"type"];
-                [[[Renren sharedRenren] requestWithParams:params andDelegate:singleSNSUtility] connect];
+            if([RennClient isLogin]){
+                [self sendRennGetFeed];
             }else{
-                [[Renren sharedRenren] authorizationWithPermisson:[[NSArray alloc] initWithObjects:@"read_user_feed status_update", nil] andDelegate:singleSNSUtility];
+                [RennClient loginWithDelegate:self];
             }
         }
             break;
@@ -118,18 +126,17 @@ static SNSUtility * singleSNSUtility = nil;
     }
 }
 
+-(void)sendRennGetFeed{
+    ListFeedParam *param = [[ListFeedParam alloc] init];
+//    [param setFeedType:@"10,20"];
+    [param setPageSize:10];
+    [RennClient sendAsynRequest:param delegate:self];
+}
+
 -(void)pushStatus:(NSString *)status withType:(SNSType)type andDelegate:(id<SNSDelegate>)delegate{
     
 }
 
-
--(void)sendRenrenStatus:(NSString *)status withDelegate:(id<SNSDelegate>) delegate{
-    NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    [params setObject:@"status.set" forKey:@"method"];
-    [params setObject:status forKey:@"status"];
-    [params setObject:@"1.0" forKey:@"v"];
-    [[[Renren sharedRenren] requestWithParams:params andDelegate:singleSNSUtility] connect];
-}
 
 
 
@@ -150,71 +157,108 @@ static SNSUtility * singleSNSUtility = nil;
 
 
 #pragma mark - Renren Delegate
+
+-(void)rennLoginSuccess{
+    
+}
+
+- (void)rennService:(RennService *)service requestSuccessWithResponse:(id)response
+{
+    if ([service.type isEqualToString:kRennServiceTypeListFeed]) {
+        NSLog(@"requestSuccessWithResponse:%@", response);
+        NSArray * info = response; 
+        NSMutableArray * newsArray = [NSMutableArray array];
+        for (NSDictionary *single in info) {
+            RenrenNewsCell *singleInfo = [[RenrenNewsCell alloc] init];
+            NSDictionary *userInfo = [[single objectForKey:@"sourceUser"] isKindOfClass:[NSDictionary class]]?[single objectForKey:@"sourceUser"]:nil;
+            if (userInfo) {
+                singleInfo.name = [userInfo objectForKey:@"name"];
+                singleInfo.headURL = [[[userInfo objectForKey:@"avatar"] objectAtIndex:0] objectForKey:@"url"];
+                singleInfo.user_id = [[userInfo objectForKey:@"id"] integerValue];
+                singleInfo.content = [single objectForKey:@"message"];
+                [newsArray addObject:singleInfo];
+            }
+        }
+        if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
+            [self.renrenDelegate receiveNews:newsArray];
+        }
+    }
+}
+
+- (void)rennService:(RennService *)service requestFailWithError:(NSError*)error
+{
+    NSLog(@"requestFailWithError:%@", [error description]);
+//    NSString *domain = [error domain];
+//    NSString *code = [[error userInfo] objectForKey:@"code"];
+//    NSLog(@"requestFailWithError:Error Domain = %@, Error Code = %@", domain, code);
+//    AppLog(@"请求失败: %@", domain);
+}
+
 /**
  * 接口请求成功，第三方开发者实现这个方法
  * @param renren 传回代理服务器接口请求的Renren类型对象。
  * @param response 传回接口请求的响应。
  */
-- (void)renren:(Renren *)renren requestDidReturnResponse:(ROResponse*)response{
-        NSArray * info = [response rootObject];  // json response string
-        NSMutableArray * newsArray = [NSMutableArray array];
-        for (NSDictionary *single in info) {
-            RenrenNewsCell *singleInfo = [[RenrenNewsCell alloc] init];
-            singleInfo.name = [single objectForKey:@"name"];
-            singleInfo.headURL = [single objectForKey:@"headurl"];
-            singleInfo.user_id = [[single objectForKey:@"actor_id"] integerValue];
-            singleInfo.content = [single objectForKey:@"message"];
-            [newsArray addObject:singleInfo];
-        }
-        if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
-            [self.renrenDelegate receiveNews:newsArray];
-        }
-}
-
-/**
- * 接口请求失败，第三方开发者实现这个方法
- * @param renren 传回代理服务器接口请求的Renren类型对象。
- * @param response 传回接口请求的错误对象。
- */
-- (void)renren:(Renren *)renren requestFailWithError:(ROError*)error{
-    NSLog(@"request error");
-}
-
-/**
- * renren取消Dialog时调用，第三方开发者实现这个方法
- * @param renren 传回代理授权登录接口请求的Renren类型对象。
- */
-- (void)renrenDialogDidCancel:(Renren *)renren{
-    NSLog(@"dialog cancel");
-}
-
-
-/**
- * 授权登录成功时被调用，第三方开发者实现这个方法
- * @param renren 传回代理授权登录接口请求的Renren类型对象。
- */
-- (void)renrenDidLogin:(Renren *)renren{
-    NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    [params setObject:@"feed.get" forKey:@"method"];
-    [params setObject:@"10" forKey:@"type"];
-    [[renren requestWithParams:params andDelegate:singleSNSUtility] connect];
-}
-
-/**
- * 用户登出成功后被调用 第三方开发者实现这个方法
- * @param renren 传回代理登出接口请求的Renren类型对象。
- */
-- (void)renrenDidLogout:(Renren *)renren{
-    NSLog(@"logout");
-}
-
-/**
- * 授权登录失败时被调用，第三方开发者实现这个方法
- * @param renren 传回代理授权登录接口请求的Renren类型对象。
- */
-- (void)renren:(Renren *)renren loginFailWithError:(ROError*)error{
-    NSLog(@"Login Fail!");
-}
+//- (void)renren:(Renren *)renren requestDidReturnResponse:(ROResponse*)response{
+//        NSArray * info = [response rootObject];  // json response string
+//        NSMutableArray * newsArray = [NSMutableArray array];
+//        for (NSDictionary *single in info) {
+//            RenrenNewsCell *singleInfo = [[RenrenNewsCell alloc] init];
+//            singleInfo.name = [single objectForKey:@"name"];
+//            singleInfo.headURL = [single objectForKey:@"headurl"];
+//            singleInfo.user_id = [[single objectForKey:@"actor_id"] integerValue];
+//            singleInfo.content = [single objectForKey:@"message"];
+//            [newsArray addObject:singleInfo];
+//        }
+//        if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
+//            [self.renrenDelegate receiveNews:newsArray];
+//        }
+//}
+//
+///**
+// * 接口请求失败，第三方开发者实现这个方法
+// * @param renren 传回代理服务器接口请求的Renren类型对象。
+// * @param response 传回接口请求的错误对象。
+// */
+//- (void)renren:(Renren *)renren requestFailWithError:(ROError*)error{
+//    NSLog(@"request error");
+//}
+//
+///**
+// * renren取消Dialog时调用，第三方开发者实现这个方法
+// * @param renren 传回代理授权登录接口请求的Renren类型对象。
+// */
+//- (void)renrenDialogDidCancel:(Renren *)renren{
+//    NSLog(@"dialog cancel");
+//}
+//
+//
+///**
+// * 授权登录成功时被调用，第三方开发者实现这个方法
+// * @param renren 传回代理授权登录接口请求的Renren类型对象。
+// */
+//- (void)renrenDidLogin:(Renren *)renren{
+//    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+//    [params setObject:@"feed.get" forKey:@"method"];
+//    [params setObject:@"10" forKey:@"type"];
+//    [[renren requestWithParams:params andDelegate:singleSNSUtility] connect];
+//}
+//
+///**
+// * 用户登出成功后被调用 第三方开发者实现这个方法
+// * @param renren 传回代理登出接口请求的Renren类型对象。
+// */
+//- (void)renrenDidLogout:(Renren *)renren{
+//    NSLog(@"logout");
+//}
+//
+///**
+// * 授权登录失败时被调用，第三方开发者实现这个方法
+// * @param renren 传回代理授权登录接口请求的Renren类型对象。
+// */
+//- (void)renren:(Renren *)renren loginFailWithError:(ROError*)error{
+//    NSLog(@"Login Fail!");
+//}
 
 
 #pragma mark - Weibo Delegate
