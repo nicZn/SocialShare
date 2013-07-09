@@ -13,6 +13,8 @@
 +(FileManager *)shareInstance;
 + (BOOL)tryToRelease;
 
+-(NSString *)getTempDirectory;
+
 -(NSString *)getAvatarDirectory:(SNSType)type;
 
 -(BOOL)isFileExist:(NSString *)filePath;

@@ -35,7 +35,6 @@
 		85508301178A9DB6007BACB3 /* HttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85508300178A9DB6007BACB3 /* HttpManager.m */; };
 		85508304178AA530007BACB3 /* HttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 85508303178AA530007BACB3 /* HttpRequest.m */; };
 		85508307178ACBC1007BACB3 /* NZNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 85508306178ACBC1007BACB3 /* NZNotificationCenter.m */; };
-		85556300178BFF6D007DB8C7 /* Comments.m in Sources */ = {isa = PBXBuildFile; fileRef = 855562FF178BFF6D007DB8C7 /* Comments.m */; };
 		85556303178BFF7B007DB8C7 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 85556302178BFF7B007DB8C7 /* Feed.m */; };
 		85556306178BFF7C007DB8C7 /* Comments.m in Sources */ = {isa = PBXBuildFile; fileRef = 85556305178BFF7C007DB8C7 /* Comments.m */; };
 		85556309178BFF7C007DB8C7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 85556308178BFF7C007DB8C7 /* User.m */; };
@@ -99,8 +98,6 @@
 		85508303178AA530007BACB3 /* HttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HttpRequest.m; path = Common/HttpRequest.m; sourceTree = "<group>"; };
 		85508305178ACBC1007BACB3 /* NZNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZNotificationCenter.h; path = Common/NZNotificationCenter.h; sourceTree = "<group>"; };
 		85508306178ACBC1007BACB3 /* NZNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZNotificationCenter.m; path = Common/NZNotificationCenter.m; sourceTree = "<group>"; };
-		855562FE178BFF6D007DB8C7 /* Comments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comments.h; path = Data/Comments.h; sourceTree = "<group>"; };
-		855562FF178BFF6D007DB8C7 /* Comments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comments.m; path = Data/Comments.m; sourceTree = "<group>"; };
 		85556301178BFF7B007DB8C7 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Feed.h; path = Data/Feed.h; sourceTree = "<group>"; };
 		85556302178BFF7B007DB8C7 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Feed.m; path = Data/Feed.m; sourceTree = "<group>"; };
 		85556304178BFF7C007DB8C7 /* Comments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comments.h; path = Data/Comments.h; sourceTree = "<group>"; };
@@ -319,8 +316,6 @@
 				85556301178BFF7B007DB8C7 /* Feed.h */,
 				85556302178BFF7B007DB8C7 /* Feed.m */,
 				85DA829E178BB21D00FCD1A2 /* LocalModel.xcdatamodeld */,
-				855562FE178BFF6D007DB8C7 /* Comments.h */,
-				855562FF178BFF6D007DB8C7 /* Comments.m */,
 				85DA82BB178BD80900FCD1A2 /* DataController.h */,
 				85DA82BC178BD80900FCD1A2 /* DataController.m */,
 			);
@@ -448,7 +443,6 @@
 				85DA82A0178BB21D00FCD1A2 /* LocalModel.xcdatamodeld in Sources */,
 				85DA82A8178BB9DB00FCD1A2 /* BasicViewController.m in Sources */,
 				85DA82BD178BD80900FCD1A2 /* DataController.m in Sources */,
-				85556300178BFF6D007DB8C7 /* Comments.m in Sources */,
 				85556303178BFF7B007DB8C7 /* Feed.m in Sources */,
 				85556306178BFF7C007DB8C7 /* Comments.m in Sources */,
 				85556309178BFF7C007DB8C7 /* User.m in Sources */,

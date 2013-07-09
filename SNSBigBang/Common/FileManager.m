@@ -115,6 +115,10 @@ static NSString *s_userPoolDirectory = nil;
     return self;
 }
 
+-(NSString *)getTempDirectory{
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"tmp"];
+}
+
 -(NSString *)getAvatarDirectory:(SNSType)type{
     switch (type) {
         case RenrenType:

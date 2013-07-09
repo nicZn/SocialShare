@@ -167,7 +167,7 @@ static SNSUtility * singleSNSUtility = nil;
 #pragma mark - Renren Delegate
 
 -(void)rennLoginSuccess{
-    
+    [self sendRennGetFeed];
 }
 
 - (void)rennService:(RennService *)service requestSuccessWithResponse:(id)response
@@ -299,7 +299,7 @@ static SNSUtility * singleSNSUtility = nil;
 }
 
 
-#pragma mark
+#pragma mark - weibo request delegate
 
 
 /*

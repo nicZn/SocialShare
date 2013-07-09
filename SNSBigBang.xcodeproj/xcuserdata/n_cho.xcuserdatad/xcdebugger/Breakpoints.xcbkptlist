@@ -46,39 +46,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "SNSBigBang/Data/DataController.m"
-         timestampString = "395047939.797013"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "85"
-         endingLineNumber = "85"
-         landmarkName = "-persistentStoreCoordinator"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "SNSBigBang/Common/FileManager.m"
-         timestampString = "395045606.138558"
+         timestampString = "395055039.969303"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "136"
-         endingLineNumber = "136"
-         landmarkName = "-getStoreFileURL"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SNSBigBang/Common/FileManager.m"
-         timestampString = "395045607.116342"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "140"
-         endingLineNumber = "140"
-         landmarkName = "-getModelURL"
+         startingLineNumber = "64"
+         endingLineNumber = "64"
+         landmarkName = "+getUserPoolDirectory"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -98,9 +98,9 @@ static const NSTimeInterval kTimeoutInterval = 60.0;
         }else{
             if (self.isDownloadFile) {
                 [data writeToFile:self.downloadFilePath atomically:YES];
-                if ([self.requestDelegate respondsToSelector:@selector(connectionFinish:)]) {
-                    [self.requestDelegate connectionFinish:self];
-                }
+            }
+            if ([self.requestDelegate respondsToSelector:@selector(connectionFinish:)]) {
+                [self.requestDelegate connectionFinish:self];
             }
         }
         

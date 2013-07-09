@@ -45,11 +45,17 @@ static HttpManager *singletonHttpManager = nil;
     [self.operationQueue addOperation:request];
 }
 
+-(void)downloadImage:(NSString *)urlString{
+    HttpRequest *request = [[HttpRequest alloc] initWithURL:urlString andMethod:@"GET"];
+    [request setDownloadFilePath:@"tmp"];
+    [request setDelegate:self];
+    [self.operationQueue addOperation:request];
+}
+
 
 #pragma mark - Http Request Delegate
 
 -(void)connectionFinish:(HttpRequest *)request{
-    NSLog(@"finish request:%@",request);
     [[NZNotificationCenter shareInstance] postNotification:@"avatarDownloadFinished" withUserInfo:[NSDictionary dictionaryWithObject:[request getDownloadFilePath] forKey:@"downloadFilePath"] waitUtilDone:NO];
 }
 

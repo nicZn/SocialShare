@@ -12,6 +12,7 @@
 #import "FileManager.h"
 #import "User.h"
 #import "Feed.h"
+#import "Comments.h"
 
 static DataController * singletonDataController = nil;
 
@@ -22,6 +23,7 @@ static DataController * singletonDataController = nil;
 @property(nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property(nonatomic, strong) NSMutableDictionary *usersDict;
 @property(nonatomic, strong) NSMutableDictionary *feedsDict;
+@property(nonatomic, strong) NSMutableDictionary *commentsDict;
 
 @property (nonatomic, strong) NSOperationQueue *saveQueue;
 
@@ -34,6 +36,7 @@ static DataController * singletonDataController = nil;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize usersDict = _usersDict;
 @synthesize feedsDict = _feedsDict;
+@synthesize commentsDict = _commentsDict;
 
 
 +(DataController *)shareInstance{
@@ -57,14 +60,20 @@ static DataController * singletonDataController = nil;
 -(void)loadData{
     NSArray *users = [self sortEntity:@"User" withKey:nil andValue:nil];
     NSArray *feeds = [self sortEntity:@"Feed" withKey:nil andValue:nil];
+    NSArray *comments = [self sortEntity:@"Comments" withKey:nil andValue:nil];
     self.usersDict = [NSMutableDictionary dictionary];
     self.feedsDict = [NSMutableDictionary dictionary];
+    self.commentsDict = [NSMutableDictionary dictionary];
     for (User* user in users) {
         [self.usersDict setObject:user forKey:user.id];
     }
     for (Feed *feed in feeds) {
         [self.feedsDict setObject:feed forKey:feed.id];
     }
+    for (Comments *comment in comments) {
+        [self.commentsDict setObject:comment forKey:comment.id];
+    }
+    
 }
 
 -(void)startSaveThread{
@@ -211,6 +220,8 @@ static DataController * singletonDataController = nil;
         feed.id = feedId;
         feed.content = [feedInfo objectForKey:@"content"];
         feed.owner = [self.usersDict objectForKey:[feedInfo objectForKey:@"userId"]];
+        [feed.owner addFeedsObject:feed];
+        [self.feedsDict setObject:feed forKey:feedId];
         [self saveContext];
     }
 }
