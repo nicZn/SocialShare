@@ -52,7 +52,7 @@
 -(void)loadDataFromCache:(RenrenNewsCell *)dataCell{
     NSLog(@"%@",dataCell);
     self.avatarFile = [[[FileManager shareInstance] getAvatarDirectory:RenrenType] stringByAppendingPathComponent:[[dataCell.headURL componentsSeparatedByString:@"/"] lastObject]];
-    NSLog(@"renren avatarPath:%@",self.avatarFile);
+    [self.avatarView setContentMode:UIViewContentModeScaleToFill];
     if ([[FileManager shareInstance] isFileExist:self.avatarFile]) {
         self.avatarView.image = [UIImage imageWithContentsOfFile:self.avatarFile];
     }else{
@@ -68,11 +68,9 @@
     self.nameLabel.text = dataCell.name;
     [self addSubview:self.nameLabel];
     
-    NSLog(@"%@",dataCell.content);
     font = [UIFont fontWithName:@"Arial" size:15.0];
     size = CGSizeMake(320, 960);
     CGSize statusLabelSize = [dataCell.content sizeWithFont:font constrainedToSize:size];
-    NSLog(@"%f,%f",statusLabelSize.height,statusLabelSize.width);
     self.statusLabel.frame = CGRectMake(50, nameLabelSize.height + 5, statusLabelSize.width, statusLabelSize.height > (self.frame.size.height - nameLabelSize.height - 5)?(self.frame.size.height - nameLabelSize.height - 5):statusLabelSize.height);
     self.statusLabel.font = font;
     self.statusLabel.text = dataCell.content;

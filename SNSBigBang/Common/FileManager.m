@@ -132,6 +132,14 @@ static NSString *s_userPoolDirectory = nil;
     return nil;
 }
 
+-(NSURL *)getStoreFileURL{
+    return [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] URLByAppendingPathComponent:@"model.sqlite"];
+}
+
+-(NSURL *)getModelURL{
+    return [[NSBundle mainBundle] URLForResource:@"LocalModel" withExtension:@"momd"];
+}
+
 -(BOOL)isFileExist:(NSString *)filePath{
     return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
 }

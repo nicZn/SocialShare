@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "DataController.h"
 
 @interface MainViewController ()<UITabBarControllerDelegate>
 
@@ -33,6 +34,7 @@
 //    [[button layer] setCornerRadius:8.0];
     [button setTitle:@"Login" forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor redColor]];
+    [DataController shareInstance];
     
 }
 

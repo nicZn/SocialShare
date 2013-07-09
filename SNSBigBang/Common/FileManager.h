@@ -16,4 +16,7 @@
 -(NSString *)getAvatarDirectory:(SNSType)type;
 
 -(BOOL)isFileExist:(NSString *)filePath;
+
+-(NSURL *)getStoreFileURL;
+-(NSURL *)getModelURL;
 @end

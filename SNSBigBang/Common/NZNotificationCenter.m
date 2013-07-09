@@ -49,7 +49,7 @@ static NZNotificationCenter *singleNotificationCenter = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:[notificationDetails objectForKey:NOTIFICATIONNAME] object:nil userInfo:userInfo];
     }
     else{
-#warning post notification not in mainThread
+        [self performSelectorOnMainThread:@selector(postAsycNotification:) withObject:notificationDetails waitUntilDone:NO];
     }
 }
 

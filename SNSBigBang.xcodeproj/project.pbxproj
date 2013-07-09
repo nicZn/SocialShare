@@ -37,6 +37,12 @@
 		85508307178ACBC1007BACB3 /* NZNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 85508306178ACBC1007BACB3 /* NZNotificationCenter.m */; };
 		858EE5EC177A92F4000FF384 /* WeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EB177A92F4000FF384 /* WeiboViewController.m */; };
 		858EE5EF177AAECB000FF384 /* WeChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EE177AAECA000FF384 /* WeChatViewController.m */; };
+		85DA82A0178BB21D00FCD1A2 /* LocalModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 85DA829E178BB21D00FCD1A2 /* LocalModel.xcdatamodeld */; };
+		85DA82A8178BB9DB00FCD1A2 /* BasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DA82A7178BB9DB00FCD1A2 /* BasicViewController.m */; };
+		85DA82B7178BD62C00FCD1A2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DA82B6178BD62C00FCD1A2 /* User.m */; };
+		85DA82BA178BD62C00FCD1A2 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DA82B9178BD62C00FCD1A2 /* Feed.m */; };
+		85DA82BD178BD80900FCD1A2 /* DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DA82BC178BD80900FCD1A2 /* DataController.m */; };
+		85DA82C0178BDB5900FCD1A2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85DA82BE178BDB2C00FCD1A2 /* CoreData.framework */; };
 		85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */; };
 		85DF3F74177D980100DC0A7B /* WeiboNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */; };
 		85EB0CDA178128800023291C /* RenrenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EB0CD9178128800023291C /* RenrenCell.m */; };
@@ -95,6 +101,16 @@
 		858EE5EB177A92F4000FF384 /* WeiboViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboViewController.m; path = UI/WeiboViewController.m; sourceTree = "<group>"; };
 		858EE5ED177AAECA000FF384 /* WeChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeChatViewController.h; path = UI/WeChatViewController.h; sourceTree = "<group>"; };
 		858EE5EE177AAECA000FF384 /* WeChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeChatViewController.m; path = UI/WeChatViewController.m; sourceTree = "<group>"; };
+		85DA829F178BB21D00FCD1A2 /* LocalModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalModel.xcdatamodel; sourceTree = "<group>"; };
+		85DA82A6178BB9DB00FCD1A2 /* BasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicViewController.h; path = UI/Basic/BasicViewController.h; sourceTree = "<group>"; };
+		85DA82A7178BB9DB00FCD1A2 /* BasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicViewController.m; path = UI/Basic/BasicViewController.m; sourceTree = "<group>"; };
+		85DA82B5178BD62C00FCD1A2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Data/User.h; sourceTree = "<group>"; };
+		85DA82B6178BD62C00FCD1A2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Data/User.m; sourceTree = "<group>"; };
+		85DA82B8178BD62C00FCD1A2 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Feed.h; path = Data/Feed.h; sourceTree = "<group>"; };
+		85DA82B9178BD62C00FCD1A2 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Feed.m; path = Data/Feed.m; sourceTree = "<group>"; };
+		85DA82BB178BD80900FCD1A2 /* DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataController.h; path = Data/DataController.h; sourceTree = "<group>"; };
+		85DA82BC178BD80900FCD1A2 /* DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataController.m; path = Data/DataController.m; sourceTree = "<group>"; };
+		85DA82BE178BDB2C00FCD1A2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		85DF3F6E177D8FA700DC0A7B /* RenrenNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenrenNewsCell.h; path = SNSCache/RenrenNewsCell.h; sourceTree = "<group>"; };
 		85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenrenNewsCell.m; path = SNSCache/RenrenNewsCell.m; sourceTree = "<group>"; };
 		85DF3F72177D980100DC0A7B /* WeiboNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboNewsCell.h; path = SNSCache/WeiboNewsCell.h; sourceTree = "<group>"; };
@@ -108,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85DA82C0178BDB5900FCD1A2 /* CoreData.framework in Frameworks */,
 				852C2F6A17798092005C1121 /* libsqlite3.0.dylib in Frameworks */,
 				852C2BFF177977AC005C1121 /* UIKit.framework in Frameworks */,
 				852C2C01177977AC005C1121 /* Foundation.framework in Frameworks */,
@@ -141,6 +158,7 @@
 		852C2BFD177977AC005C1121 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				85DA82BE178BDB2C00FCD1A2 /* CoreData.framework */,
 				852C2F6917798092005C1121 /* libsqlite3.0.dylib */,
 				852C2BFE177977AC005C1121 /* UIKit.framework */,
 				852C2C00177977AC005C1121 /* Foundation.framework */,
@@ -152,6 +170,7 @@
 		852C2C04177977AC005C1121 /* SNSBigBang */ = {
 			isa = PBXGroup;
 			children = (
+				85DA829D178BB1F800FCD1A2 /* Data */,
 				855082F7178A92BF007BACB3 /* Common */,
 				852C2DC617797D72005C1121 /* SNSLibrary */,
 				852C2F8817799AC4005C1121 /* UI */,
@@ -245,6 +264,7 @@
 		852C2F8817799AC4005C1121 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				85DA82A5178BB9A900FCD1A2 /* Basic */,
 				85EB0CD41781281B0023291C /* Cell */,
 				852C2F8917799B00005C1121 /* RenrenViewController.h */,
 				852C2F8A17799B00005C1121 /* RenrenViewController.m */,
@@ -281,6 +301,29 @@
 				85508303178AA530007BACB3 /* HttpRequest.m */,
 			);
 			name = Common;
+			sourceTree = "<group>";
+		};
+		85DA829D178BB1F800FCD1A2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				85DA82B5178BD62C00FCD1A2 /* User.h */,
+				85DA82B8178BD62C00FCD1A2 /* Feed.h */,
+				85DA82B9178BD62C00FCD1A2 /* Feed.m */,
+				85DA82B6178BD62C00FCD1A2 /* User.m */,
+				85DA829E178BB21D00FCD1A2 /* LocalModel.xcdatamodeld */,
+				85DA82BB178BD80900FCD1A2 /* DataController.h */,
+				85DA82BC178BD80900FCD1A2 /* DataController.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		85DA82A5178BB9A900FCD1A2 /* Basic */ = {
+			isa = PBXGroup;
+			children = (
+				85DA82A6178BB9DB00FCD1A2 /* BasicViewController.h */,
+				85DA82A7178BB9DB00FCD1A2 /* BasicViewController.m */,
+			);
+			name = Basic;
 			sourceTree = "<group>";
 		};
 		85DF3F6D177D8F6300DC0A7B /* SNSCache */ = {
@@ -392,6 +435,11 @@
 				85508301178A9DB6007BACB3 /* HttpManager.m in Sources */,
 				85508304178AA530007BACB3 /* HttpRequest.m in Sources */,
 				85508307178ACBC1007BACB3 /* NZNotificationCenter.m in Sources */,
+				85DA82A0178BB21D00FCD1A2 /* LocalModel.xcdatamodeld in Sources */,
+				85DA82A8178BB9DB00FCD1A2 /* BasicViewController.m in Sources */,
+				85DA82B7178BD62C00FCD1A2 /* User.m in Sources */,
+				85DA82BA178BD62C00FCD1A2 /* Feed.m in Sources */,
+				85DA82BD178BD80900FCD1A2 /* DataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +583,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		85DA829E178BB21D00FCD1A2 /* LocalModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				85DA829F178BB21D00FCD1A2 /* LocalModel.xcdatamodel */,
+			);
+			currentVersion = 85DA829F178BB21D00FCD1A2 /* LocalModel.xcdatamodel */;
+			name = LocalModel.xcdatamodeld;
+			path = Data/LocalModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 852C2BF3177977AC005C1121 /* Project object */;
 }
