@@ -209,7 +209,6 @@ static DataController * singletonDataController = nil;
     if (![[self.feedsDict allKeys] containsObject:feedId]) {
         Feed *feed = [NSEntityDescription insertNewObjectForEntityForName:@"Feed" inManagedObjectContext:self.managedObjectContext];
         feed.id = feedId;
-        feed.userId = [feedInfo objectForKey:@"userId"];
         feed.content = [feedInfo objectForKey:@"content"];
         feed.owner = [self.usersDict objectForKey:[feedInfo objectForKey:@"userId"]];
         [self saveContext];
@@ -224,7 +223,20 @@ static DataController * singletonDataController = nil;
 }
 
 -(void)deleteFeedOfUser:(NSInteger)userId{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Feed"];
+    request.predicate = [NSPredicate predicateWithFormat:@"whichUser.id = %@",[NSNumber numberWithInteger:userId]];
+    NSSortDescriptor * sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    NSError *error = nil;
+    NSArray *matches = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (error) {
+        return ;
+    }
     
+    for (Feed *feed in matches) {
+        [self.managedObjectContext deleteObject:feed];
+    }
+    [self saveContext];
 }
 
 @end

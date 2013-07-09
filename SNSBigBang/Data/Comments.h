@@ -1,5 +1,5 @@
 //
-//  Feed.h
+//  Comments.h
 //  SNSBigBang
 //
 //  Created by 張 寧 on 2013/07/09.
@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Comments, User;
+@class Feed, User;
 
-@interface Feed : NSManagedObject
+@interface Comments : NSManagedObject
 
-@property (nonatomic, retain) NSString * content;
 @property (nonatomic, retain) NSNumber * id;
-@property (nonatomic, retain) NSNumber * snsType;
+@property (nonatomic, retain) NSDate * time;
+@property (nonatomic, retain) NSString * content;
 @property (nonatomic, retain) User *owner;
-@property (nonatomic, retain) Comments *comments;
+@property (nonatomic, retain) Feed *feedto;
 
 @end

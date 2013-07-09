@@ -1,22 +1,22 @@
 //
-//  Feed.m
+//  Comments.m
 //  SNSBigBang
 //
 //  Created by 張 寧 on 2013/07/09.
 //  Copyright (c) 2013年 張 寧. All rights reserved.
 //
 
-#import "Feed.h"
 #import "Comments.h"
+#import "Feed.h"
 #import "User.h"
 
 
-@implementation Feed
+@implementation Comments
 
-@dynamic content;
 @dynamic id;
-@dynamic snsType;
+@dynamic time;
+@dynamic content;
 @dynamic owner;
-@dynamic comments;
+@dynamic feedto;
 
 @end

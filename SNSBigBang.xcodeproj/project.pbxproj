@@ -35,12 +35,14 @@
 		85508301178A9DB6007BACB3 /* HttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85508300178A9DB6007BACB3 /* HttpManager.m */; };
 		85508304178AA530007BACB3 /* HttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 85508303178AA530007BACB3 /* HttpRequest.m */; };
 		85508307178ACBC1007BACB3 /* NZNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 85508306178ACBC1007BACB3 /* NZNotificationCenter.m */; };
+		85556300178BFF6D007DB8C7 /* Comments.m in Sources */ = {isa = PBXBuildFile; fileRef = 855562FF178BFF6D007DB8C7 /* Comments.m */; };
+		85556303178BFF7B007DB8C7 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 85556302178BFF7B007DB8C7 /* Feed.m */; };
+		85556306178BFF7C007DB8C7 /* Comments.m in Sources */ = {isa = PBXBuildFile; fileRef = 85556305178BFF7C007DB8C7 /* Comments.m */; };
+		85556309178BFF7C007DB8C7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 85556308178BFF7C007DB8C7 /* User.m */; };
 		858EE5EC177A92F4000FF384 /* WeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EB177A92F4000FF384 /* WeiboViewController.m */; };
 		858EE5EF177AAECB000FF384 /* WeChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858EE5EE177AAECA000FF384 /* WeChatViewController.m */; };
 		85DA82A0178BB21D00FCD1A2 /* LocalModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 85DA829E178BB21D00FCD1A2 /* LocalModel.xcdatamodeld */; };
 		85DA82A8178BB9DB00FCD1A2 /* BasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DA82A7178BB9DB00FCD1A2 /* BasicViewController.m */; };
-		85DA82B7178BD62C00FCD1A2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DA82B6178BD62C00FCD1A2 /* User.m */; };
-		85DA82BA178BD62C00FCD1A2 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DA82B9178BD62C00FCD1A2 /* Feed.m */; };
 		85DA82BD178BD80900FCD1A2 /* DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DA82BC178BD80900FCD1A2 /* DataController.m */; };
 		85DA82C0178BDB5900FCD1A2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85DA82BE178BDB2C00FCD1A2 /* CoreData.framework */; };
 		85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */; };
@@ -97,6 +99,14 @@
 		85508303178AA530007BACB3 /* HttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HttpRequest.m; path = Common/HttpRequest.m; sourceTree = "<group>"; };
 		85508305178ACBC1007BACB3 /* NZNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZNotificationCenter.h; path = Common/NZNotificationCenter.h; sourceTree = "<group>"; };
 		85508306178ACBC1007BACB3 /* NZNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZNotificationCenter.m; path = Common/NZNotificationCenter.m; sourceTree = "<group>"; };
+		855562FE178BFF6D007DB8C7 /* Comments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comments.h; path = Data/Comments.h; sourceTree = "<group>"; };
+		855562FF178BFF6D007DB8C7 /* Comments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comments.m; path = Data/Comments.m; sourceTree = "<group>"; };
+		85556301178BFF7B007DB8C7 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Feed.h; path = Data/Feed.h; sourceTree = "<group>"; };
+		85556302178BFF7B007DB8C7 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Feed.m; path = Data/Feed.m; sourceTree = "<group>"; };
+		85556304178BFF7C007DB8C7 /* Comments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comments.h; path = Data/Comments.h; sourceTree = "<group>"; };
+		85556305178BFF7C007DB8C7 /* Comments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comments.m; path = Data/Comments.m; sourceTree = "<group>"; };
+		85556307178BFF7C007DB8C7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Data/User.h; sourceTree = "<group>"; };
+		85556308178BFF7C007DB8C7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Data/User.m; sourceTree = "<group>"; };
 		858EE5EA177A92F4000FF384 /* WeiboViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboViewController.h; path = UI/WeiboViewController.h; sourceTree = "<group>"; };
 		858EE5EB177A92F4000FF384 /* WeiboViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboViewController.m; path = UI/WeiboViewController.m; sourceTree = "<group>"; };
 		858EE5ED177AAECA000FF384 /* WeChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeChatViewController.h; path = UI/WeChatViewController.h; sourceTree = "<group>"; };
@@ -104,10 +114,6 @@
 		85DA829F178BB21D00FCD1A2 /* LocalModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalModel.xcdatamodel; sourceTree = "<group>"; };
 		85DA82A6178BB9DB00FCD1A2 /* BasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicViewController.h; path = UI/Basic/BasicViewController.h; sourceTree = "<group>"; };
 		85DA82A7178BB9DB00FCD1A2 /* BasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicViewController.m; path = UI/Basic/BasicViewController.m; sourceTree = "<group>"; };
-		85DA82B5178BD62C00FCD1A2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Data/User.h; sourceTree = "<group>"; };
-		85DA82B6178BD62C00FCD1A2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Data/User.m; sourceTree = "<group>"; };
-		85DA82B8178BD62C00FCD1A2 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Feed.h; path = Data/Feed.h; sourceTree = "<group>"; };
-		85DA82B9178BD62C00FCD1A2 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Feed.m; path = Data/Feed.m; sourceTree = "<group>"; };
 		85DA82BB178BD80900FCD1A2 /* DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataController.h; path = Data/DataController.h; sourceTree = "<group>"; };
 		85DA82BC178BD80900FCD1A2 /* DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataController.m; path = Data/DataController.m; sourceTree = "<group>"; };
 		85DA82BE178BDB2C00FCD1A2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -306,11 +312,15 @@
 		85DA829D178BB1F800FCD1A2 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				85DA82B5178BD62C00FCD1A2 /* User.h */,
-				85DA82B8178BD62C00FCD1A2 /* Feed.h */,
-				85DA82B9178BD62C00FCD1A2 /* Feed.m */,
-				85DA82B6178BD62C00FCD1A2 /* User.m */,
+				85556307178BFF7C007DB8C7 /* User.h */,
+				85556308178BFF7C007DB8C7 /* User.m */,
+				85556304178BFF7C007DB8C7 /* Comments.h */,
+				85556305178BFF7C007DB8C7 /* Comments.m */,
+				85556301178BFF7B007DB8C7 /* Feed.h */,
+				85556302178BFF7B007DB8C7 /* Feed.m */,
 				85DA829E178BB21D00FCD1A2 /* LocalModel.xcdatamodeld */,
+				855562FE178BFF6D007DB8C7 /* Comments.h */,
+				855562FF178BFF6D007DB8C7 /* Comments.m */,
 				85DA82BB178BD80900FCD1A2 /* DataController.h */,
 				85DA82BC178BD80900FCD1A2 /* DataController.m */,
 			);
@@ -437,9 +447,11 @@
 				85508307178ACBC1007BACB3 /* NZNotificationCenter.m in Sources */,
 				85DA82A0178BB21D00FCD1A2 /* LocalModel.xcdatamodeld in Sources */,
 				85DA82A8178BB9DB00FCD1A2 /* BasicViewController.m in Sources */,
-				85DA82B7178BD62C00FCD1A2 /* User.m in Sources */,
-				85DA82BA178BD62C00FCD1A2 /* Feed.m in Sources */,
 				85DA82BD178BD80900FCD1A2 /* DataController.m in Sources */,
+				85556300178BFF6D007DB8C7 /* Comments.m in Sources */,
+				85556303178BFF7B007DB8C7 /* Feed.m in Sources */,
+				85556306178BFF7C007DB8C7 /* Comments.m in Sources */,
+				85556309178BFF7C007DB8C7 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

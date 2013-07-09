@@ -7,16 +7,18 @@
 //
 
 #import "User.h"
+#import "Comments.h"
 #import "Feed.h"
 
 
 @implementation User
 
+@dynamic avatarFilePath;
+@dynamic avatarUrl;
 @dynamic id;
 @dynamic name;
 @dynamic snstype;
-@dynamic avatarUrl;
-@dynamic avatarFilePath;
 @dynamic feeds;
+@dynamic comments;
 
 @end
