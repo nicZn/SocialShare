@@ -70,11 +70,13 @@ static DataController * singletonDataController = nil;
 -(void)startSaveThread{
     [self.saveQueue addOperationWithBlock:^(void){
         while (1) {
+            NSLog(@"Data save info!");
             [NSThread sleepForTimeInterval:60*10];
             [self saveContext];
         }
     }];
 }
+
 
 #pragma mark - Data Model Init
 
@@ -166,25 +168,59 @@ static DataController * singletonDataController = nil;
 }
 
 -(void)addUser:(NSDictionary *)userInfo{
-    
+    NSNumber *userId = [userInfo objectForKey:@"id"];
+    if ([[self.usersDict allKeys] containsObject:userId]) {
+        //check should update
+        User *user = [self.usersDict objectForKey:userId];
+        user.name = [userInfo objectForKey:@"name"];
+        user.avatarUrl = [userInfo objectForKey:@"avatarUrl"];
+    }else{
+        User *user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+        user.id = userId;
+        user.name = [userInfo objectForKey:@"name"];
+        user.avatarUrl = [userInfo objectForKey:@"avatarUrl"];
+        user.avatarFilePath = [userInfo objectForKey:@"avatarFile"];
+        user.snstype = [userInfo objectForKey:@"snsType"];
+        [self.usersDict setObject:user forKey:userId];
+        [self saveContext];
+    }
 }
 
 -(void)deleleUser:(NSInteger)userId{
-    
+    User *user = [self.usersDict objectForKey:[NSNumber numberWithInteger:userId]];
+    [self.usersDict removeObjectForKey:[NSNumber numberWithInteger:userId]];
+    if (user) {
+        [self.managedObjectContext deleteObject:user];
+        [self deleteFeedOfUser:userId];
+        [self saveContext];
+    }
 }
 
 #pragma mark - Feed Method
 
 -(void)addFeeds:(NSArray *)feedsArray{
-    
+    for (NSDictionary *feedInfo in feedsArray) {
+        [self addFeed:feedInfo];
+    }
 }
 
--(void)addFeed:(NSDictionary *)feed{
-    
+-(void)addFeed:(NSDictionary *)feedInfo{
+    NSNumber *feedId = [feedInfo objectForKey:@"id"];
+    if (![[self.feedsDict allKeys] containsObject:feedId]) {
+        Feed *feed = [NSEntityDescription insertNewObjectForEntityForName:@"Feed" inManagedObjectContext:self.managedObjectContext];
+        feed.id = feedId;
+        feed.userId = [feedInfo objectForKey:@"userId"];
+        feed.content = [feedInfo objectForKey:@"content"];
+        feed.owner = [self.usersDict objectForKey:[feedInfo objectForKey:@"userId"]];
+        [self saveContext];
+    }
 }
 
 -(void)deleteFeed:(NSInteger)feedId{
-    
+    Feed *feed = [self.feedsDict objectForKey:[NSNumber numberWithInteger:feedId]];
+    if (feed) {
+        [self.managedObjectContext deleteObject:feed];
+    }
 }
 
 -(void)deleteFeedOfUser:(NSInteger)userId{

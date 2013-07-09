@@ -18,7 +18,7 @@
 -(void)deleleUser:(NSInteger)userId;
 
 -(void)addFeeds:(NSArray *)feedsArray;
--(void)addFeed:(NSDictionary *)feed;
+-(void)addFeed:(NSDictionary *)feedInfo;
 -(void)deleteFeed:(NSInteger)feedId;
 -(void)deleteFeedOfUser:(NSInteger)userId;
 @end
