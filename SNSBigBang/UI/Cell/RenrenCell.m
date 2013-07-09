@@ -26,9 +26,12 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(3,3, 44, 44)];
-        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-        self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 3, 270, 20)];
+        self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 25, 270, 25)];
         [self addSubview:self.avatarView];
+        [self addSubview:self.nameLabel];
+        [self addSubview:self.statusLabel];
+        NSLog(@"%f",self.frame.size.height);
     }
     return self;
 }
@@ -50,7 +53,7 @@
 }
 
 -(void)loadDataFromCache:(RenrenNewsCell *)dataCell{
-    NSLog(@"%@",dataCell);
+    
     self.avatarFile = [[[FileManager shareInstance] getAvatarDirectory:RenrenType] stringByAppendingPathComponent:[[dataCell.headURL componentsSeparatedByString:@"/"] lastObject]];
     [self.avatarView setContentMode:UIViewContentModeScaleToFill];
     if ([[FileManager shareInstance] isFileExist:self.avatarFile]) {
@@ -60,19 +63,22 @@
         [[HttpManager shareInstance] downloadAvatar:dataCell.headURL path:self.avatarFile];
     }
     
-    UIFont *font = [UIFont fontWithName:@"Arial" size:12.0];
-    CGSize size = CGSizeMake(320, 960);
+    UIFont *font = [UIFont fontWithName:@"Arial" size:16.0];
+    CGSize size = CGSizeMake(270, 960);
     CGSize nameLabelSize = [dataCell.name sizeWithFont:font constrainedToSize:size];
     self.nameLabel.frame = CGRectMake(50, 3, nameLabelSize.width, nameLabelSize.height);
     self.nameLabel.font = font;
     self.nameLabel.text = dataCell.name;
     [self addSubview:self.nameLabel];
     
-    font = [UIFont fontWithName:@"Arial" size:15.0];
-    size = CGSizeMake(320, 960);
+    font = [UIFont fontWithName:@"Arial" size:12.0];
+    size = CGSizeMake(270, 960);
     CGSize statusLabelSize = [dataCell.content sizeWithFont:font constrainedToSize:size];
+    NSLog(@"%f,%f",self.frame.size.height,nameLabelSize.height);
+    NSLog(@"%f,%f",self.frame.size.height - nameLabelSize.height - 5,statusLabelSize.height);
     self.statusLabel.frame = CGRectMake(50, nameLabelSize.height + 5, statusLabelSize.width, statusLabelSize.height > (self.frame.size.height - nameLabelSize.height - 5)?(self.frame.size.height - nameLabelSize.height - 5):statusLabelSize.height);
     self.statusLabel.font = font;
+    self.statusLabel.numberOfLines = 4;
     self.statusLabel.text = dataCell.content;
     [self addSubview:self.statusLabel];
     

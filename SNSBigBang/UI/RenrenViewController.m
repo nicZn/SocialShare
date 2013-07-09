@@ -71,7 +71,7 @@
 #pragma mark - table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 64;
+    return 100.0f;
 }
 
 #pragma mark - table data delegate
@@ -83,7 +83,7 @@
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    RenrenCell *cell = [[RenrenCell alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+    RenrenCell *cell = [[RenrenCell alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
     [cell loadDataFromCache:[self.newsCache objectAtIndex:indexPath.row]];
     return cell;
 }
