@@ -13,7 +13,5 @@
 
 @protocol SNSCellDelegate <NSObject>
 
--(void)commentRenren:(RenrenCell *)renrenCell;
 
--(void)commentWeibo:(WeiboCell *)renrenCell;
 @end

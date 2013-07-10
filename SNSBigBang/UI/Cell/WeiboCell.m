@@ -77,7 +77,6 @@
     size = CGSizeMake(270, 960);
     CGSize statusLabelSize = [dataCell.content sizeWithFont:font constrainedToSize:size];
     self.statusLabel.frame = CGRectMake(50, nameLabelSize.height + 5, statusLabelSize.width, statusLabelSize.height > 45.0?45:statusLabelSize.height);
-    NSLog(@"%f,%f,%f",nameLabelSize.height+5,self.statusLabel.frame.size.width,self.statusLabel.frame.size.height);
     self.statusLabel.font = font;
     self.statusLabel.numberOfLines = 4;
     self.statusLabel.text = dataCell.content;

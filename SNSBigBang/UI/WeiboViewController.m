@@ -8,9 +8,11 @@
 
 #import "WeiboViewController.h"
 #import "SNSUtility.h"
-#import "WeiboCell.h"
+#import "SNSNewsCellView.h"
+#import "NewsCacheElement.h"
+#import "DetailInfoViewController.h"
 
-@interface WeiboViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface WeiboViewController ()<UITableViewDataSource,UITableViewDelegate,SNSCellDelegate>
 
 @property (nonatomic) UITableView *NewsTableView;
 @property (nonatomic, strong) NSMutableArray *newsCache;
@@ -71,10 +73,14 @@
 #pragma mark - tableView delegate
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (((WeiboNewsCell *)[self.newsCache objectAtIndex:indexPath.row]).imageURL != nil) {
+    if (((NewsCacheElement *)[self.newsCache objectAtIndex:indexPath.row]).imageURL != nil) {
         return 150.0f;
     }
     return 100.0f;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:@"showWeibo" sender:self];
 }
 
 #pragma mark - tableView Data Source
@@ -85,8 +91,8 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    WeiboCell *cell = [[WeiboCell alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-    [cell loadDataFromCache:[self.newsCache objectAtIndex:indexPath.row]];
+    SNSNewsCellView *cell = [[SNSNewsCellView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+    [cell loadDataFromCache:[self.newsCache objectAtIndex:indexPath.row] withDelegate:self];
     return cell;
 }
 
@@ -94,6 +100,16 @@
     return 1;
 }
 
+
+#pragma mark - segue method
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"showDetailWeibo"]) {
+        NSIndexPath *indexPath = [self.NewsTableView indexPathForSelectedRow];
+        DetailInfoViewController *vc = [segue destinationViewController];
+        [vc loadUserInfo:[NSDictionary dictionaryWithObjectsAndKeys:[self.newsCache objectAtIndex:indexPath.row],@"Cell",[NSNumber numberWithInteger:WeiboType],@"Type",nil]];
+    }
+}
 
 
 

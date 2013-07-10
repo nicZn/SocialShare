@@ -7,8 +7,9 @@
 //
 
 #import "RenrenViewController.h"
-#import "RenrenCell.h"
+#import "SNSNewsCellView.h"
 #import "SNSCellDelegate.h"
+#import "DetailInfoViewController.h"
 
 @interface RenrenViewController ()<UITableViewDataSource,UITableViewDelegate,SNSCellDelegate>
 
@@ -78,6 +79,10 @@
     return 100.0f;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:@"showDetail" sender:self];
+}
+
 #pragma mark - table data delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.newsCache.count;
@@ -87,13 +92,23 @@
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    RenrenCell *cell = [[RenrenCell alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
+    SNSNewsCellView *cell = [[SNSNewsCellView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
     [cell loadDataFromCache:[self.newsCache objectAtIndex:indexPath.row] withDelegate:self];
     return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
+}
+
+#pragma mark - segue
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    NSIndexPath *indexPath = [self.NewsTableView indexPathForSelectedRow];
+    if ([segue.identifier isEqualToString:@"showDetail"]) {
+        DetailInfoViewController *vc = [segue destinationViewController];
+        [vc loadUserInfo:[NSDictionary dictionaryWithObjectsAndKeys:[self.newsCache objectAtIndex:indexPath.row],@"Cell",[NSNumber numberWithInteger:RenrenType],@"Type",nil]];
+    }
 }
 
 

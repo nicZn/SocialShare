@@ -48,6 +48,9 @@
 		85DF3F74177D980100DC0A7B /* WeiboNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */; };
 		85EB0CDA178128800023291C /* RenrenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EB0CD9178128800023291C /* RenrenCell.m */; };
 		85FC7D21178D4E570069621C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FC7D1F178D4E4A0069621C /* QuartzCore.framework */; };
+		85FC7D24178D5B960069621C /* DetailInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85FC7D23178D5B960069621C /* DetailInfoViewController.m */; };
+		85FC7D2B178D67E90069621C /* SNSNewsCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 85FC7D2A178D67E80069621C /* SNSNewsCellView.m */; };
+		85FC7D2E178D681C0069621C /* NewsCacheElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 85FC7D2D178D681B0069621C /* NewsCacheElement.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +126,12 @@
 		85EB0CD8178128800023291C /* RenrenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenrenCell.h; path = UI/Cell/RenrenCell.h; sourceTree = "<group>"; };
 		85EB0CD9178128800023291C /* RenrenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenrenCell.m; path = UI/Cell/RenrenCell.m; sourceTree = "<group>"; };
 		85FC7D1F178D4E4A0069621C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		85FC7D22178D5B960069621C /* DetailInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailInfoViewController.h; path = UI/DetailInfoViewController.h; sourceTree = "<group>"; };
+		85FC7D23178D5B960069621C /* DetailInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailInfoViewController.m; path = UI/DetailInfoViewController.m; sourceTree = "<group>"; };
+		85FC7D29178D67E80069621C /* SNSNewsCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNSNewsCellView.h; path = UI/Cell/SNSNewsCellView.h; sourceTree = "<group>"; };
+		85FC7D2A178D67E80069621C /* SNSNewsCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SNSNewsCellView.m; path = UI/Cell/SNSNewsCellView.m; sourceTree = "<group>"; };
+		85FC7D2C178D681B0069621C /* NewsCacheElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsCacheElement.h; path = SNSCache/NewsCacheElement.h; sourceTree = "<group>"; };
+		85FC7D2D178D681B0069621C /* NewsCacheElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsCacheElement.m; path = SNSCache/NewsCacheElement.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +297,8 @@
 				858EE5EB177A92F4000FF384 /* WeiboViewController.m */,
 				858EE5ED177AAECA000FF384 /* WeChatViewController.h */,
 				858EE5EE177AAECA000FF384 /* WeChatViewController.m */,
+				85FC7D22178D5B960069621C /* DetailInfoViewController.h */,
+				85FC7D23178D5B960069621C /* DetailInfoViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -351,6 +362,8 @@
 				85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */,
 				85DF3F72177D980100DC0A7B /* WeiboNewsCell.h */,
 				85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */,
+				85FC7D2C178D681B0069621C /* NewsCacheElement.h */,
+				85FC7D2D178D681B0069621C /* NewsCacheElement.m */,
 			);
 			name = SNSCache;
 			sourceTree = "<group>";
@@ -363,6 +376,8 @@
 				850328791786B26C00C3774C /* WeiboCell.h */,
 				8503287A1786B26C00C3774C /* WeiboCell.m */,
 				85122910178D06ED0013B6C8 /* SNSCellDelegate.h */,
+				85FC7D29178D67E80069621C /* SNSNewsCellView.h */,
+				85FC7D2A178D67E80069621C /* SNSNewsCellView.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -460,6 +475,9 @@
 				85556303178BFF7B007DB8C7 /* Feed.m in Sources */,
 				85556306178BFF7C007DB8C7 /* Comments.m in Sources */,
 				85556309178BFF7C007DB8C7 /* User.m in Sources */,
+				85FC7D24178D5B960069621C /* DetailInfoViewController.m in Sources */,
+				85FC7D2B178D67E90069621C /* SNSNewsCellView.m in Sources */,
+				85FC7D2E178D681C0069621C /* NewsCacheElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

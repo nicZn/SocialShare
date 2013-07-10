@@ -1,18 +1,18 @@
 //
-//  RenrenCell.m
+//  SNSNewsCellView.m
 //  SNSBigBang
 //
-//  Created by 張 寧 on 2013/07/01.
+//  Created by 張 寧 on 2013/07/10.
 //  Copyright (c) 2013年 張 寧. All rights reserved.
 //
 
-#import "RenrenCell.h"
-#import "HttpManager.h"
+#import "SNSNewsCellView.h"
 #import "FileManager.h"
 #import "NZNotificationCenter.h"
+#import "NewsCacheElement.h"
+#import "HttpManager.h"
 
-
-@interface RenrenCell()
+@interface SNSNewsCellView()
 
 @property (nonatomic, strong) NSString *avatarFile;
 @property (nonatomic, strong) UIImageView *avatarView;
@@ -21,34 +21,26 @@
 @property (nonatomic, strong) UIButton *moreButton;
 @property (nonatomic, strong) id<SNSCellDelegate> delegate;
 @property (nonatomic, strong) UIView *moreMenu;
-
 @end
 
-@implementation RenrenCell
+@implementation SNSNewsCellView
 
 @synthesize avatarFile;
 @synthesize avatarView;
 @synthesize nameLabel;
 @synthesize statusLabel;
 @synthesize moreButton;
-@synthesize delegate = _delegate;
+@synthesize delegate;
 
--(id)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(3,3, 44, 44)];
-        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 3, 270, 20)];
-        self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 25, 270, 25)];
-        [self addSubview:self.avatarView];
-    }
-    return self;
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+        self.avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(3,3, 44, 44)];
+        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 3, 270, 20)];
+        self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 25, 270, 25)];
+        [self addSubview:self.avatarView];
     }
     return self;
 }
@@ -60,9 +52,10 @@
     // Configure the view for the selected state
 }
 
--(void)loadDataFromCache:(RenrenNewsCell *)dataCell withDelegate:(id<SNSCellDelegate>)delegate{
+
+-(void)loadDataFromCache:(NewsCacheElement *)dataCell withDelegate:(id<SNSCellDelegate>)snsCellDelegate{
     self.frame = CGRectMake(0, 0, 320, 100);
-    _delegate = delegate;
+    self.delegate = snsCellDelegate;
     self.avatarFile = [[[FileManager shareInstance] getAvatarDirectory:RenrenType] stringByAppendingPathComponent:[[dataCell.headURL componentsSeparatedByString:@"/"] lastObject]];
     [self.avatarView setContentMode:UIViewContentModeScaleToFill];
     if ([[FileManager shareInstance] isFileExist:self.avatarFile]) {
@@ -83,7 +76,7 @@
     font = [UIFont fontWithName:@"Arial" size:12.0];
     size = CGSizeMake(270, 960);
     CGSize statusLabelSize = [dataCell.content sizeWithFont:font constrainedToSize:size];
-
+    
     self.statusLabel.frame = CGRectMake(50, nameLabelSize.height + 5, statusLabelSize.width, statusLabelSize.height > 45.0?45.0:statusLabelSize.height);
     self.statusLabel.font = font;
     self.statusLabel.numberOfLines = 3;

@@ -12,8 +12,7 @@
 #import "RennSDK/RennSDK.h"
 #import "SinaWeibo.h"
 #import "SinaWeiboRequest.h"
-#import "RenrenNewsCell.h"
-#import "WeiboNewsCell.h"
+#import "NewsCacheElement.h"
 
 //Renren config
 #define RenrenAppId     @"237526"
@@ -151,12 +150,6 @@ static SNSUtility * singleSNSUtility = nil;
 #pragma mark - Weibo
 
 
--(void)getNewsForWeibo:(id<SNSDelegate>)delegate{
-    NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    [params setObject:WeiboAppKey forKey:@"appkey"];
-    [[weibo requestWithURL:@"statuses/friends_timeline.json" params:params httpMethod:@"GET" delegate:singleSNSUtility] connect];
-}
-
 -(void)pushStatus:(NSString *)status withDelegate:(id<SNSDelegate>)delegate{
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     [params setObject:[[NSString alloc] initWithCString:[status cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding] forKey:@"status"];
@@ -177,14 +170,18 @@ static SNSUtility * singleSNSUtility = nil;
         NSArray * info = response; 
         NSMutableArray * newsArray = [NSMutableArray array];
         for (NSDictionary *single in info) {
-            RenrenNewsCell *singleInfo = [[RenrenNewsCell alloc] init];
+            NewsCacheElement *element = [[NewsCacheElement alloc] init];
             NSDictionary *userInfo = [[single objectForKey:@"sourceUser"] isKindOfClass:[NSDictionary class]]?[single objectForKey:@"sourceUser"]:nil;
             if (userInfo) {
-                singleInfo.name = [userInfo objectForKey:@"name"];
-                singleInfo.headURL = [[[userInfo objectForKey:@"avatar"] objectAtIndex:0] objectForKey:@"url"];
-                singleInfo.user_id = [[userInfo objectForKey:@"id"] integerValue];
-                singleInfo.content = [single objectForKey:@"message"];
-                [newsArray addObject:singleInfo];
+                element.name = [userInfo objectForKey:@"name"];
+                element.headURL = [[[userInfo objectForKey:@"avatar"] objectAtIndex:0] objectForKey:@"url"];
+                element.user_id = [[userInfo objectForKey:@"id"] integerValue];
+                element.content = [single objectForKey:@"message"];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+                element.time = [dateFormatter dateFromString:[single objectForKey:@"time"]];
+                dateFormatter = nil;
+                [newsArray addObject:element];
             }
         }
         if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
@@ -199,77 +196,9 @@ static SNSUtility * singleSNSUtility = nil;
 - (void)rennService:(RennService *)service requestFailWithError:(NSError*)error
 {
     NSLog(@"requestFailWithError:%@", [error description]);
-//    NSString *domain = [error domain];
-//    NSString *code = [[error userInfo] objectForKey:@"code"];
-//    NSLog(@"requestFailWithError:Error Domain = %@, Error Code = %@", domain, code);
-//    AppLog(@"请求失败: %@", domain);
+
 }
 
-/**
- * 接口请求成功，第三方开发者实现这个方法
- * @param renren 传回代理服务器接口请求的Renren类型对象。
- * @param response 传回接口请求的响应。
- */
-//- (void)renren:(Renren *)renren requestDidReturnResponse:(ROResponse*)response{
-//        NSArray * info = [response rootObject];  // json response string
-//        NSMutableArray * newsArray = [NSMutableArray array];
-//        for (NSDictionary *single in info) {
-//            RenrenNewsCell *singleInfo = [[RenrenNewsCell alloc] init];
-//            singleInfo.name = [single objectForKey:@"name"];
-//            singleInfo.headURL = [single objectForKey:@"headurl"];
-//            singleInfo.user_id = [[single objectForKey:@"actor_id"] integerValue];
-//            singleInfo.content = [single objectForKey:@"message"];
-//            [newsArray addObject:singleInfo];
-//        }
-//        if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
-//            [self.renrenDelegate receiveNews:newsArray];
-//        }
-//}
-//
-///**
-// * 接口请求失败，第三方开发者实现这个方法
-// * @param renren 传回代理服务器接口请求的Renren类型对象。
-// * @param response 传回接口请求的错误对象。
-// */
-//- (void)renren:(Renren *)renren requestFailWithError:(ROError*)error{
-//    NSLog(@"request error");
-//}
-//
-///**
-// * renren取消Dialog时调用，第三方开发者实现这个方法
-// * @param renren 传回代理授权登录接口请求的Renren类型对象。
-// */
-//- (void)renrenDialogDidCancel:(Renren *)renren{
-//    NSLog(@"dialog cancel");
-//}
-//
-//
-///**
-// * 授权登录成功时被调用，第三方开发者实现这个方法
-// * @param renren 传回代理授权登录接口请求的Renren类型对象。
-// */
-//- (void)renrenDidLogin:(Renren *)renren{
-//    NSMutableDictionary * params = [NSMutableDictionary dictionary];
-//    [params setObject:@"feed.get" forKey:@"method"];
-//    [params setObject:@"10" forKey:@"type"];
-//    [[renren requestWithParams:params andDelegate:singleSNSUtility] connect];
-//}
-//
-///**
-// * 用户登出成功后被调用 第三方开发者实现这个方法
-// * @param renren 传回代理登出接口请求的Renren类型对象。
-// */
-//- (void)renrenDidLogout:(Renren *)renren{
-//    NSLog(@"logout");
-//}
-//
-///**
-// * 授权登录失败时被调用，第三方开发者实现这个方法
-// * @param renren 传回代理授权登录接口请求的Renren类型对象。
-// */
-//- (void)renren:(Renren *)renren loginFailWithError:(ROError*)error{
-//    NSLog(@"Login Fail!");
-//}
 
 
 #pragma mark - Weibo Delegate
@@ -323,13 +252,14 @@ static SNSUtility * singleSNSUtility = nil;
     NSArray *statusArray = [dataDict objectForKey:@"statuses"];
     NSMutableArray *statusInfo = [NSMutableArray array];
     for (NSDictionary *dict in statusArray) {
-        WeiboNewsCell *cell = [[WeiboNewsCell alloc] init];
-        cell.name = [[dict objectForKey:@"user"] objectForKey:@"screen_name"];
-        cell.content = [dict objectForKey:@"text"];
-        cell.headURL = [[dict objectForKey:@"user"] objectForKey:@"profile_image_url"];
-        cell.user_id = [[[dict objectForKey:@"user"] objectForKey:@"id"] integerValue];
-        cell.time = [dict objectForKey:@"created_at"];
-        [statusInfo addObject:cell];
+        NewsCacheElement *element = [[NewsCacheElement alloc] init];
+        element.name = [[dict objectForKey:@"user"] objectForKey:@"screen_name"];
+        element.content = [dict objectForKey:@"text"];
+        element.headURL = [[dict objectForKey:@"user"] objectForKey:@"profile_image_url"];
+        element.user_id = [[[dict objectForKey:@"user"] objectForKey:@"id"] integerValue];
+        element.time = [dict objectForKey:@"created_at"];
+        element.type = WeiboType;
+        [statusInfo addObject:element];
     }
     [self.weiboDelegate receiveNews:statusInfo];
 }
