@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "RenrenNewsCell.h"
+#import "SNSCellDelegate.h"
 
 @interface RenrenCell : UITableViewCell
 
--(void)loadDataFromCache:(RenrenNewsCell *)dataCell;
+-(void)loadDataFromCache:(RenrenNewsCell *)dataCell withDelegate:(id<SNSCellDelegate>)delegate;
 
 @end

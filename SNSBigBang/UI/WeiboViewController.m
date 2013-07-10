@@ -71,7 +71,10 @@
 #pragma mark - tableView delegate
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 64.0f;
+    if (((WeiboNewsCell *)[self.newsCache objectAtIndex:indexPath.row]).imageURL != nil) {
+        return 150.0f;
+    }
+    return 100.0f;
 }
 
 #pragma mark - tableView Data Source

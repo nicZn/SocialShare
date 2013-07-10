@@ -47,11 +47,13 @@
 		85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */; };
 		85DF3F74177D980100DC0A7B /* WeiboNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */; };
 		85EB0CDA178128800023291C /* RenrenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EB0CD9178128800023291C /* RenrenCell.m */; };
+		85FC7D21178D4E570069621C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FC7D1F178D4E4A0069621C /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		850328791786B26C00C3774C /* WeiboCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboCell.h; path = UI/Cell/WeiboCell.h; sourceTree = "<group>"; };
 		8503287A1786B26C00C3774C /* WeiboCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboCell.m; path = UI/Cell/WeiboCell.m; sourceTree = "<group>"; };
+		85122910178D06ED0013B6C8 /* SNSCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SNSCellDelegate.h; path = UI/Cell/SNSCellDelegate.h; sourceTree = "<group>"; };
 		852C2BFB177977AC005C1121 /* SNSBigBang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SNSBigBang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		852C2BFE177977AC005C1121 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		852C2C00177977AC005C1121 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -120,6 +122,7 @@
 		85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboNewsCell.m; path = SNSCache/WeiboNewsCell.m; sourceTree = "<group>"; };
 		85EB0CD8178128800023291C /* RenrenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenrenCell.h; path = UI/Cell/RenrenCell.h; sourceTree = "<group>"; };
 		85EB0CD9178128800023291C /* RenrenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenrenCell.m; path = UI/Cell/RenrenCell.m; sourceTree = "<group>"; };
+		85FC7D1F178D4E4A0069621C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85FC7D21178D4E570069621C /* QuartzCore.framework in Frameworks */,
 				85DA82C0178BDB5900FCD1A2 /* CoreData.framework in Frameworks */,
 				852C2F6A17798092005C1121 /* libsqlite3.0.dylib in Frameworks */,
 				852C2BFF177977AC005C1121 /* UIKit.framework in Frameworks */,
@@ -141,6 +145,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		85122912178D0F110013B6C8 /* UIItem */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UIItem;
+			sourceTree = "<group>";
+		};
 		852C2BF2177977AC005C1121 = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +172,7 @@
 		852C2BFD177977AC005C1121 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				85FC7D1F178D4E4A0069621C /* QuartzCore.framework */,
 				85DA82BE178BDB2C00FCD1A2 /* CoreData.framework */,
 				852C2F6917798092005C1121 /* libsqlite3.0.dylib */,
 				852C2BFE177977AC005C1121 /* UIKit.framework */,
@@ -267,6 +279,7 @@
 		852C2F8817799AC4005C1121 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				85122912178D0F110013B6C8 /* UIItem */,
 				85DA82A5178BB9A900FCD1A2 /* Basic */,
 				85EB0CD41781281B0023291C /* Cell */,
 				852C2F8917799B00005C1121 /* RenrenViewController.h */,
@@ -349,6 +362,7 @@
 				85EB0CD9178128800023291C /* RenrenCell.m */,
 				850328791786B26C00C3774C /* WeiboCell.h */,
 				8503287A1786B26C00C3774C /* WeiboCell.m */,
+				85122910178D06ED0013B6C8 /* SNSCellDelegate.h */,
 			);
 			name = Cell;
 			sourceTree = "<group>";

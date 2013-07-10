@@ -15,5 +15,6 @@
 @synthesize content;
 @synthesize user_id;
 @synthesize time;
+@synthesize imageURL;
 
 @end

@@ -15,5 +15,6 @@
 @property (nonatomic, strong) NSString *headURL;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSDate * time;
+@property (nonatomic, strong) NSString *imageURL;
 
 @end

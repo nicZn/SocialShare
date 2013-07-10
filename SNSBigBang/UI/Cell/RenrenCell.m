@@ -11,16 +11,27 @@
 #import "FileManager.h"
 #import "NZNotificationCenter.h"
 
+
 @interface RenrenCell()
 
 @property (nonatomic, strong) NSString *avatarFile;
 @property (nonatomic, strong) UIImageView *avatarView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *statusLabel;
+@property (nonatomic, strong) UIButton *moreButton;
+@property (nonatomic, strong) id<SNSCellDelegate> delegate;
+@property (nonatomic, strong) UIView *moreMenu;
 
 @end
 
 @implementation RenrenCell
+
+@synthesize avatarFile;
+@synthesize avatarView;
+@synthesize nameLabel;
+@synthesize statusLabel;
+@synthesize moreButton;
+@synthesize delegate;
 
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -29,9 +40,6 @@
         self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 3, 270, 20)];
         self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 25, 270, 25)];
         [self addSubview:self.avatarView];
-        [self addSubview:self.nameLabel];
-        [self addSubview:self.statusLabel];
-        NSLog(@"%f",self.frame.size.height);
     }
     return self;
 }
@@ -52,8 +60,9 @@
     // Configure the view for the selected state
 }
 
--(void)loadDataFromCache:(RenrenNewsCell *)dataCell{
-    
+-(void)loadDataFromCache:(RenrenNewsCell *)dataCell withDelegate:(id<SNSCellDelegate>)delegate{
+    self.frame = CGRectMake(0, 0, 320, 100);
+    self.delegate = delegate;
     self.avatarFile = [[[FileManager shareInstance] getAvatarDirectory:RenrenType] stringByAppendingPathComponent:[[dataCell.headURL componentsSeparatedByString:@"/"] lastObject]];
     [self.avatarView setContentMode:UIViewContentModeScaleToFill];
     if ([[FileManager shareInstance] isFileExist:self.avatarFile]) {
@@ -74,14 +83,47 @@
     font = [UIFont fontWithName:@"Arial" size:12.0];
     size = CGSizeMake(270, 960);
     CGSize statusLabelSize = [dataCell.content sizeWithFont:font constrainedToSize:size];
-    NSLog(@"%f,%f",self.frame.size.height,nameLabelSize.height);
-    NSLog(@"%f,%f",self.frame.size.height - nameLabelSize.height - 5,statusLabelSize.height);
-    self.statusLabel.frame = CGRectMake(50, nameLabelSize.height + 5, statusLabelSize.width, statusLabelSize.height > (self.frame.size.height - nameLabelSize.height - 5)?(self.frame.size.height - nameLabelSize.height - 5):statusLabelSize.height);
+
+    self.statusLabel.frame = CGRectMake(50, nameLabelSize.height + 5, statusLabelSize.width, statusLabelSize.height > 45.0?45.0:statusLabelSize.height);
     self.statusLabel.font = font;
-    self.statusLabel.numberOfLines = 4;
+    self.statusLabel.numberOfLines = 3;
     self.statusLabel.text = dataCell.content;
     [self addSubview:self.statusLabel];
     
+    self.moreButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.moreButton.frame = CGRectMake(290,68, 23, 30);
+    [self.moreButton setTitle:@"M" forState:UIControlStateNormal];
+    [self.moreButton addTarget:self action:@selector(clickMoreButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.moreButton];
+    
+    [self loadMoreMenu];
+}
+
+#pragma mark - UI Method
+
+-(void)loadMoreMenu{
+    self.moreMenu = [[UIView alloc] initWithFrame:CGRectMake(128, 68, 160, 30)];
+    self.moreMenu.layer.borderColor = [[UIColor brownColor] CGColor];
+    self.moreMenu.layer.borderWidth = 3.0f;
+    self.moreMenu.layer.cornerRadius = 4.0f;
+    self.moreMenu.backgroundColor = [UIColor blueColor];
+    UIButton *likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    likeButton.frame = CGRectMake(5, 4, 70, 22);
+    likeButton.layer.cornerRadius = 5.0f;
+    likeButton.layer.borderColor = [[UIColor blackColor] CGColor];
+    likeButton.layer.borderWidth = 1.0f;
+    likeButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    likeButton.layer.masksToBounds = NO;
+    [likeButton setTitle:@"Like" forState:UIControlStateNormal];
+    UIButton *commentButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    commentButton.frame = CGRectMake(80, 4, 70, 22);
+    commentButton.layer.masksToBounds = YES;
+    commentButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [commentButton setTitle:@"Comment" forState:UIControlStateNormal];
+    [self.moreMenu addSubview:likeButton];
+    [self.moreMenu addSubview:commentButton];
+    self.moreMenu.hidden = YES;
+    [self insertSubview:self.moreMenu belowSubview:self.moreButton];
 }
 
 #pragma mark - Notification method
@@ -93,6 +135,27 @@
         [[NZNotificationCenter shareInstance] removeObserver:self forNotification:@"avatarDownloadFinished"];
         self.avatarView.image = [UIImage imageWithContentsOfFile:self.avatarFile];
     }
+}
+
+-(IBAction)clickMoreButton:(id)sender{
+    if (self.moreMenu.hidden) {
+        CATransition *animation = [CATransition animation];
+        [animation setDuration:0.5f];
+        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
+        [animation setType:@"moveIn"];
+        [animation setSubtype: kCATransitionFromRight];
+        self.moreMenu.hidden = NO;
+        [self.moreMenu.layer addAnimation:animation forKey:@"animation"];
+    }else{
+        CATransition *animation = [CATransition animation];
+        [animation setDuration:0.5f];
+        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
+        [animation setType:@"reveal"];
+        [animation setSubtype: kCATransitionFromLeft];
+        self.moreMenu.hidden = YES;
+        [self.moreMenu.layer addAnimation:animation forKey:@"animation"];
+    }
+    
 }
 
 @end

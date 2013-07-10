@@ -8,11 +8,14 @@
 
 #import "RenrenViewController.h"
 #import "RenrenCell.h"
+#import "SNSCellDelegate.h"
 
-@interface RenrenViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface RenrenViewController ()<UITableViewDataSource,UITableViewDelegate,SNSCellDelegate>
 
 @property (nonatomic) UITableView *NewsTableView;
 @property (nonatomic, strong) NSMutableArray *newsCache;
+
+@property (nonatomic) BOOL isShowMoreMenu;
 
 @end
 
@@ -20,6 +23,7 @@
 
 @synthesize NewsTableView;
 @synthesize newsCache;
+@synthesize isShowMoreMenu;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -84,7 +88,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     RenrenCell *cell = [[RenrenCell alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
-    [cell loadDataFromCache:[self.newsCache objectAtIndex:indexPath.row]];
+    [cell loadDataFromCache:[self.newsCache objectAtIndex:indexPath.row] withDelegate:self];
     return cell;
 }
 
@@ -99,5 +103,8 @@
     self.newsCache = newsArray;
     [self.NewsTableView reloadData];
 }
+
+#pragma mark - SNS cell Delegate
+
 
 @end

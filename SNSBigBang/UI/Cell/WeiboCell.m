@@ -54,7 +54,7 @@
 }
 
 -(void)loadDataFromCache:(WeiboNewsCell *)dataCell{
-    
+    self.frame = CGRectMake(0, 0, 320, 100);
     self.avatarFile = [[[FileManager shareInstance] getAvatarDirectory:WeiboType] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpg",dataCell.name]];
     [self.avatarView setContentMode:UIViewContentModeScaleToFill];
     if([[FileManager shareInstance] isFileExist:self.avatarFile]){
@@ -65,19 +65,21 @@
     }
     
     
-    UIFont *font = [UIFont fontWithName:@"Arial" size:12.0];
-    CGSize size = CGSizeMake(320, 960);
+    UIFont *font = [UIFont fontWithName:@"Arial" size:16.0];
+    CGSize size = CGSizeMake(270, 960);
     CGSize nameLabelSize = [dataCell.name sizeWithFont:font constrainedToSize:size];
     self.nameLabel.frame = CGRectMake(50, 3, nameLabelSize.width, nameLabelSize.height);
     self.nameLabel.font = font;
     self.nameLabel.text = dataCell.name;
     [self addSubview:self.nameLabel];
     
-    font = [UIFont fontWithName:@"Arial" size:15.0];
-    size = CGSizeMake(320, 960);
+    font = [UIFont fontWithName:@"Arial" size:12.0];
+    size = CGSizeMake(270, 960);
     CGSize statusLabelSize = [dataCell.content sizeWithFont:font constrainedToSize:size];
-    self.statusLabel.frame = CGRectMake(50, nameLabelSize.height + 5, statusLabelSize.width, statusLabelSize.height > (self.frame.size.height - nameLabelSize.height - 5)?(self.frame.size.height - nameLabelSize.height - 5):statusLabelSize.height);
+    self.statusLabel.frame = CGRectMake(50, nameLabelSize.height + 5, statusLabelSize.width, statusLabelSize.height > 45.0?45:statusLabelSize.height);
+    NSLog(@"%f,%f,%f",nameLabelSize.height+5,self.statusLabel.frame.size.width,self.statusLabel.frame.size.height);
     self.statusLabel.font = font;
+    self.statusLabel.numberOfLines = 4;
     self.statusLabel.text = dataCell.content;
     [self addSubview:self.statusLabel];
     
