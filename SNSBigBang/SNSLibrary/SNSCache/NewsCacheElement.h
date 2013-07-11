@@ -10,7 +10,7 @@
 
 @interface NewsCacheElement : NSObject
 
-@property (nonatomic) NSInteger user_id;
+@property (nonatomic) NSString* user_id;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *headURL;
 @property (nonatomic, strong) NSString *content;

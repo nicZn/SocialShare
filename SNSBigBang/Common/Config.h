@@ -11,5 +11,6 @@
 typedef enum {
     RenrenType = 0,
     WeChatType = 1,
-    WeiboType  = 2
+    WeiboType  = 2,
+    TencentType = 3
 } SNSType;

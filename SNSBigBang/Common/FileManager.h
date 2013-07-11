@@ -21,4 +21,6 @@
 
 -(NSURL *)getStoreFileURL;
 -(NSURL *)getModelURL;
+
+-(BOOL)copyFile:(NSString *)sourceFilePath toFile:(NSString *)toFilePath;
 @end

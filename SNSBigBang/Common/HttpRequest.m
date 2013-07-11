@@ -40,6 +40,7 @@ static const NSTimeInterval kTimeoutInterval = 60.0;
     self = [super init];
     if (self) {
         self.request = [[NSMutableURLRequest alloc] init];
+        self.httpURL = [NSURL URLWithString:url];
         [self.request setURL:[NSURL URLWithString:url]];
         [self.request setHTTPMethod:@"GET"];
         [self.request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
@@ -85,13 +86,19 @@ static const NSTimeInterval kTimeoutInterval = 60.0;
     }
 }
 
+-(NSString *)getURLString{
+    return [self.httpURL absoluteString];
+}
+
 -(void)start{
     if (self.param) {
         [self.request setAllHTTPHeaderFields:self.param];
     }
     [NSURLConnection sendAsynchronousRequest:self.request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response ,NSData* data, NSError* error ){
+        NSLog(@"downloadURL: %@",self.httpURL);
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (error || httpResponse.statusCode != 200) {
+            NSLog(@"statusCode: %d",httpResponse.statusCode);
             if ([self.requestDelegate respondsToSelector:@selector(connectionFailed:withError:)]) {
                 [self.requestDelegate connectionFailed:self withError:error];
             }
@@ -106,6 +113,7 @@ static const NSTimeInterval kTimeoutInterval = 60.0;
         
     }];    
 }
+
 
 
 

@@ -31,6 +31,7 @@
 @synthesize statusLabel;
 @synthesize moreButton;
 @synthesize delegate;
+@synthesize type;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -54,15 +55,20 @@
 
 
 -(void)loadDataFromCache:(NewsCacheElement *)dataCell withDelegate:(id<SNSCellDelegate>)snsCellDelegate{
+    self.type = dataCell.type;
     self.frame = CGRectMake(0, 0, 320, 100);
     self.delegate = snsCellDelegate;
-    self.avatarFile = [[[FileManager shareInstance] getAvatarDirectory:RenrenType] stringByAppendingPathComponent:[[dataCell.headURL componentsSeparatedByString:@"/"] lastObject]];
+    self.avatarFile = [[[FileManager shareInstance] getAvatarDirectory:self.type] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpg",dataCell.user_id]];
     [self.avatarView setContentMode:UIViewContentModeScaleToFill];
     if ([[FileManager shareInstance] isFileExist:self.avatarFile]) {
         self.avatarView.image = [UIImage imageWithContentsOfFile:self.avatarFile];
     }else{
         [[NZNotificationCenter shareInstance] addObserver:self forNotification:@"avatarDownloadFinished" withSelector:@selector(avatarDownloadFinished:)];
-        [[HttpManager shareInstance] downloadAvatar:dataCell.headURL path:self.avatarFile];
+        if (self.type == TencentType) {
+            [[HttpManager shareInstance] downloadAvatar:[dataCell.headURL stringByAppendingString:@"/0"] path:self.avatarFile];
+        }else{
+            [[HttpManager shareInstance] downloadAvatar:dataCell.headURL path:self.avatarFile];
+        }
     }
     
     UIFont *font = [UIFont fontWithName:@"Arial" size:16.0];

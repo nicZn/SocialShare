@@ -17,13 +17,8 @@ static NSString *s_userPoolDirectory = nil;
 @property (nonatomic) BOOL bInitial;
 @property (nonatomic, strong) NSString *bundleDirectory;
 
-@property (nonatomic, strong) NSString *renrenDirectory;
-@property (nonatomic, strong) NSString *weiboDirectory;
-@property (nonatomic, strong) NSString *wechatDirectory;
-
-@property (nonatomic, strong) NSString *renrenAvatarDirectory;
-@property (nonatomic, strong) NSString *weiboAvatarDirectory;
-@property (nonatomic, strong) NSString *wechatAvatarDirectory;
+@property (nonatomic, strong) NSString *avatarDirectory;
+@property (nonatomic, strong) NSString *configDirectory;
 
 @end
 
@@ -31,13 +26,9 @@ static NSString *s_userPoolDirectory = nil;
 
 @synthesize bInitial;
 @synthesize bundleDirectory;
-@synthesize renrenDirectory;
-@synthesize weiboDirectory;
-@synthesize wechatDirectory;
 
-@synthesize renrenAvatarDirectory;
-@synthesize weiboAvatarDirectory;
-@synthesize wechatAvatarDirectory;
+@synthesize avatarDirectory = _avatarDirectory;
+@synthesize configDirectory = _configDirectory;
 
 +(FileManager *)shareInstance{
     if (singletonFileController == nil) {
@@ -85,34 +76,42 @@ static NSString *s_userPoolDirectory = nil;
             [[self class] getUserPoolDirectory];
         }
         
-        self.renrenDirectory = [s_userPoolDirectory stringByAppendingPathComponent:@"RenRen"];
-        if (![osFileManager fileExistsAtPath:self.renrenDirectory]) {
-            [osFileManager createDirectoryAtPath:self.renrenDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+        self.avatarDirectory = [s_userPoolDirectory stringByAppendingPathComponent:@"Avatar"];
+        if (![osFileManager fileExistsAtPath:self.avatarDirectory]) {
+            [osFileManager createDirectoryAtPath:self.avatarDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+            [self initInsideFilePath:self.avatarDirectory];
         }
-        self.weiboDirectory = [s_userPoolDirectory stringByAppendingPathComponent:@"Weibo"];
-        if (![osFileManager fileExistsAtPath:self.weiboDirectory]) {
-            [osFileManager createDirectoryAtPath:self.weiboDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+
+        self.configDirectory = [s_userPoolDirectory stringByAppendingPathComponent:@"Config"];
+        if (![osFileManager fileExistsAtPath:self.configDirectory]) {
+            [osFileManager createDirectoryAtPath:self.configDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+            [self initInsideFilePath:self.configDirectory];
         }
-        self.wechatDirectory = [s_userPoolDirectory stringByAppendingPathComponent:@"WeChat"];
-        if (![osFileManager fileExistsAtPath:self.wechatDirectory]) {
-            [osFileManager createDirectoryAtPath:self.wechatDirectory withIntermediateDirectories:YES attributes:nil error:nil];
-        }
-        self.renrenAvatarDirectory = [self.renrenDirectory stringByAppendingPathComponent:@"Avatar"];
-        if (![osFileManager fileExistsAtPath:self.renrenAvatarDirectory]) {
-            [osFileManager createDirectoryAtPath:self.renrenAvatarDirectory withIntermediateDirectories:YES attributes:nil error:nil];
-        }
-        self.weiboAvatarDirectory = [self.weiboDirectory stringByAppendingPathComponent:@"Avatar"];
-        if (![osFileManager fileExistsAtPath:self.weiboAvatarDirectory]) {
-            [osFileManager createDirectoryAtPath:self.weiboAvatarDirectory withIntermediateDirectories:YES attributes:nil error:nil];
-        }
-        self.wechatAvatarDirectory = [self.wechatDirectory stringByAppendingPathComponent:@"Avatar"];
-        if (![osFileManager fileExistsAtPath:self.wechatAvatarDirectory]) {
-            [osFileManager createDirectoryAtPath:self.wechatAvatarDirectory withIntermediateDirectories:YES attributes:nil error:nil];
-        }
+
         
         bInitial = YES;
     }
     return self;
+}
+
+-(void)initInsideFilePath:(NSString *)directory{
+    NSFileManager *osFileManager = [NSFileManager defaultManager];
+    NSString* renrenDirectory = [directory stringByAppendingPathComponent:@"RenRen"];
+    if (![osFileManager fileExistsAtPath:renrenDirectory]) {
+        [osFileManager createDirectoryAtPath:renrenDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSString* weiboDirectory = [directory stringByAppendingPathComponent:@"Weibo"];
+    if (![osFileManager fileExistsAtPath:weiboDirectory]) {
+        [osFileManager createDirectoryAtPath:weiboDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSString* wechatDirectory = [directory stringByAppendingPathComponent:@"WeChat"];
+    if (![osFileManager fileExistsAtPath:wechatDirectory]) {
+        [osFileManager createDirectoryAtPath:wechatDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSString* tencentDirectory = [directory stringByAppendingPathComponent:@"Tencent"];
+    if (![osFileManager fileExistsAtPath:tencentDirectory]) {
+        [osFileManager createDirectoryAtPath:tencentDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    }
 }
 
 -(NSString *)getTempDirectory{
@@ -122,14 +121,16 @@ static NSString *s_userPoolDirectory = nil;
 -(NSString *)getAvatarDirectory:(SNSType)type{
     switch (type) {
         case RenrenType:
-            return self.renrenAvatarDirectory;
+            return [self.avatarDirectory stringByAppendingPathComponent:@"RenRen"];
             break;
         case WeiboType:
-            return self.weiboAvatarDirectory;
+            return [self.avatarDirectory stringByAppendingPathComponent:@"Weibo"];
             break;
         case WeChatType:
-            return self.wechatDirectory;
+            return [self.avatarDirectory stringByAppendingPathComponent:@"WeCaht"];
             break;
+        case TencentType:
+            return [self.avatarDirectory stringByAppendingPathComponent:@"Tencent"];
         default:
             break;
     }
@@ -146,6 +147,17 @@ static NSString *s_userPoolDirectory = nil;
 
 -(BOOL)isFileExist:(NSString *)filePath{
     return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+}
+
+-(BOOL)copyFile:(NSString *)sourceFilePath toFile:(NSString *)toFilePath{
+    NSFileManager *osFileManager = [NSFileManager defaultManager];
+    if (![osFileManager fileExistsAtPath:sourceFilePath]) {
+        return NO;
+    }
+    if ([osFileManager fileExistsAtPath:toFilePath]) {
+        [osFileManager removeItemAtPath:toFilePath error:nil];
+    }
+    return [osFileManager copyItemAtPath:sourceFilePath toPath:toFilePath error:nil];
 }
 
 @end

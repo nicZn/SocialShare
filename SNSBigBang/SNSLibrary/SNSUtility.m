@@ -12,6 +12,8 @@
 #import "RennSDK/RennSDK.h"
 #import "SinaWeibo.h"
 #import "SinaWeiboRequest.h"
+#import "TCWBEngine.h"
+
 #import "NewsCacheElement.h"
 
 //Renren config
@@ -19,20 +21,28 @@
 #define RenrenAppKey    @"7627857571a64196bdf72f5e33762869"
 #define RenrenSecertKey @"731a2b281dcd4e8fa5148dd9b7e00755"
 
+//Tencent Weibo
+#define TCWBAppKey       @"801384032"
+#define TCWBAppSecertKey @"2fda5d0b3f5a3870b31c1bdce64ed62f"
+#define TCWBAppRedirectUrl  @"http://t.qq.com/wangzizn"
+
 static SNSUtility * singleSNSUtility = nil;
 
 @interface SNSUtility()<RennLoginDelegate,RennServiveDelegate,SinaWeiboDelegate,SinaWeiboRequestDelegate,SinaWeiboAuthorizeViewDelegate>
 
 @property (nonatomic) SinaWeibo *weibo;
+@property (nonatomic, strong) TCWBEngine *wbEngine;
 @property (nonatomic, weak) id<SNSDelegate> renrenDelegate;
 @property (nonatomic, weak) id<SNSDelegate> weiboDelegate;
 @property (nonatomic, weak) id<SNSDelegate> weChatDelegate;
+@property (nonatomic, weak) id<SNSDelegate> tencentDelegate;
 
 @end
 
 @implementation SNSUtility
 
 @synthesize weibo;
+@synthesize wbEngine;
 @synthesize renrenDelegate;
 @synthesize weiboDelegate;
 @synthesize weChatDelegate;
@@ -66,6 +76,9 @@ static SNSUtility * singleSNSUtility = nil;
         self.weibo.expirationDate = [sinaweiboInfo objectForKey:@"ExpirationDateKey"];
         self.weibo.userID = [sinaweiboInfo objectForKey:@"UserIDKey"];
     }
+    
+    //TencentWeibo
+    self.wbEngine = [[TCWBEngine alloc] initWithAppKey:TCWBAppKey andSecret:TCWBAppSecertKey andRedirectUrl:TCWBAppRedirectUrl];
 }
 
 -(void)saveSinaAuthInfo{
@@ -116,9 +129,7 @@ static SNSUtility * singleSNSUtility = nil;
             }
             self.weiboDelegate = delegate;
             if([self.weibo isAuthValid]){
-                NSMutableDictionary * params = [NSMutableDictionary dictionary];
-                [params setObject:WeiboAppKey forKey:@"appkey"];
-                [[weibo requestWithURL:@"statuses/friends_timeline.json" params:params httpMethod:@"GET" delegate:singleSNSUtility] connect];
+                [self getTimeLineOfWeibo];
             }else{
                 [self.weibo logIn];
             }
@@ -127,6 +138,20 @@ static SNSUtility * singleSNSUtility = nil;
         case WeChatType:
         {
             
+        }
+            break;
+        case TencentType:
+        {
+            if (!delegate) {
+                return ;
+            }
+            self.tencentDelegate = delegate;
+            if (![self.wbEngine isAuthorizeExpired]) {
+                [self.wbEngine getHomeTimelinewithFormat:@"json" pageFlag:0 pageTime:@"0" reqNum:20 type:0 andContentType:0 parReserved:nil delegate:self onSuccess:@selector(getTencentHomeLine:) onFailure:@selector(getTencentHomeLineFailed:)];
+            }else{
+                [self.wbEngine setRootViewController:(UIViewController *)delegate];
+                [self.wbEngine logInWithDelegate:self onSuccess:@selector(onSuccessLogin) onFailure:@selector(onFailureLogin:)];
+            }
         }
             break;
         default:
@@ -140,11 +165,82 @@ static SNSUtility * singleSNSUtility = nil;
     [RennClient sendAsynRequest:param delegate:self];
 }
 
+-(void)getTimeLineOfWeibo{
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    [params setObject:WeiboAppKey forKey:@"appkey"];
+    [[self.weibo requestWithURL:@"statuses/friends_timeline.json" params:params httpMethod:@"GET" delegate:self] connect];
+}
+
 -(void)pushStatus:(NSString *)status withType:(SNSType)type andDelegate:(id<SNSDelegate>)delegate{
     
 }
 
 
+-(void)readTimeLineInfo:(id)result withType:(SNSType)type{
+    NSArray *statusArray = (NSArray *)result;
+    id delegate = nil;
+    NSMutableArray *elementArray = [[NSMutableArray alloc] initWithCapacity:0];
+    for (NSDictionary *statusInfo in statusArray) {
+        NewsCacheElement *element = [[NewsCacheElement alloc] init];
+        switch (type) {
+            case RenrenType:
+            {
+                delegate = self.renrenDelegate;
+                NSDictionary *userInfo = [[statusInfo objectForKey:@"sourceUser"] isKindOfClass:[NSDictionary class]]?[statusInfo objectForKey:@"sourceUser"]:nil;
+                if (userInfo) {
+                    element.name = [userInfo objectForKey:@"name"];
+                    element.headURL = [[[userInfo objectForKey:@"avatar"] objectAtIndex:0] objectForKey:@"url"];
+                    element.user_id = [NSString stringWithFormat:@"%@", [userInfo objectForKey:@"id"]];
+                    element.content = [statusInfo objectForKey:@"message"];
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+                    element.time = [dateFormatter dateFromString:[statusInfo objectForKey:@"time"]];
+                    element.type = type;
+                    dateFormatter = nil;
+                    [elementArray addObject:element];
+                }
+                
+            }
+                break;
+            case WeiboType:
+            {
+                delegate = self.weiboDelegate;
+                element.name = [[statusInfo objectForKey:@"user"] objectForKey:@"screen_name"];
+                element.content = [statusInfo objectForKey:@"text"];
+                element.headURL = [[statusInfo objectForKey:@"user"] objectForKey:@"profile_image_url"];
+                element.user_id = [NSString stringWithFormat:@"%@", [[statusInfo objectForKey:@"user"] objectForKey:@"id"]];
+                element.time = [statusInfo objectForKey:@"created_at"];
+                element.type = WeiboType;
+                [elementArray addObject:element];
+            }
+                break;
+            case WeChatType:
+            {
+                
+            }
+                break;
+            case TencentType:
+            {
+                delegate = self.tencentDelegate;
+                element.type = TencentType;
+                element.name = [statusInfo objectForKey:@"nick"];
+                element.content = [statusInfo objectForKey:@"text"];
+                element.user_id = [statusInfo objectForKey:@"openid"];
+                element.time = [NSDate dateWithTimeIntervalSince1970:[[statusInfo objectForKey:@"timestamp"] integerValue]];
+                element.headURL = [statusInfo objectForKey:@"head"];
+                [elementArray addObject:element];
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+    if ([delegate respondsToSelector:@selector(receiveNews:)] && elementArray.count > 0) {
+        [delegate receiveNews:elementArray];
+    }
+}
 
 
 #pragma mark - Weibo
@@ -166,27 +262,27 @@ static SNSUtility * singleSNSUtility = nil;
 - (void)rennService:(RennService *)service requestSuccessWithResponse:(id)response
 {
     if ([service.type isEqualToString:kRennServiceTypeListFeed]) {
-        NSLog(@"requestSuccessWithResponse:%@", response);
         NSArray * info = response; 
         NSMutableArray * newsArray = [NSMutableArray array];
-        for (NSDictionary *single in info) {
-            NewsCacheElement *element = [[NewsCacheElement alloc] init];
-            NSDictionary *userInfo = [[single objectForKey:@"sourceUser"] isKindOfClass:[NSDictionary class]]?[single objectForKey:@"sourceUser"]:nil;
-            if (userInfo) {
-                element.name = [userInfo objectForKey:@"name"];
-                element.headURL = [[[userInfo objectForKey:@"avatar"] objectAtIndex:0] objectForKey:@"url"];
-                element.user_id = [[userInfo objectForKey:@"id"] integerValue];
-                element.content = [single objectForKey:@"message"];
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-                element.time = [dateFormatter dateFromString:[single objectForKey:@"time"]];
-                dateFormatter = nil;
-                [newsArray addObject:element];
-            }
-        }
-        if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
-            [self.renrenDelegate receiveNews:newsArray];
-        }
+        [self readTimeLineInfo:info withType:RenrenType];
+//        for (NSDictionary *single in info) {
+//            NewsCacheElement *element = [[NewsCacheElement alloc] init];
+//            NSDictionary *userInfo = [[single objectForKey:@"sourceUser"] isKindOfClass:[NSDictionary class]]?[single objectForKey:@"sourceUser"]:nil;
+//            if (userInfo) {
+//                element.name = [userInfo objectForKey:@"name"];
+//                element.headURL = [[[userInfo objectForKey:@"avatar"] objectAtIndex:0] objectForKey:@"url"];
+//                element.user_id = [[userInfo objectForKey:@"id"] integerValue];
+//                element.content = [single objectForKey:@"message"];
+//                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+//                element.time = [dateFormatter dateFromString:[single objectForKey:@"time"]];
+//                dateFormatter = nil;
+//                [newsArray addObject:element];
+//            }
+//        }
+//        if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
+//            [self.renrenDelegate receiveNews:newsArray];
+//        }
     }
     else if([service.type isEqualToString:kRennServiceTypeGetUser]){
         NSLog(@"renren user info:%@",response);
@@ -201,10 +297,12 @@ static SNSUtility * singleSNSUtility = nil;
 
 
 
+
 #pragma mark - Weibo Delegate
 
 - (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo{
     [self saveSinaAuthInfo];
+    [self getTimeLineOfWeibo];
 }
 
 
@@ -250,20 +348,41 @@ static SNSUtility * singleSNSUtility = nil;
 - (void)request:(SinaWeiboRequest *)request didFinishLoadingWithResult:(id)result{
     NSDictionary *dataDict = (NSDictionary *)result;
     NSArray *statusArray = [dataDict objectForKey:@"statuses"];
-    NSMutableArray *statusInfo = [NSMutableArray array];
-    for (NSDictionary *dict in statusArray) {
-        NewsCacheElement *element = [[NewsCacheElement alloc] init];
-        element.name = [[dict objectForKey:@"user"] objectForKey:@"screen_name"];
-        element.content = [dict objectForKey:@"text"];
-        element.headURL = [[dict objectForKey:@"user"] objectForKey:@"profile_image_url"];
-        element.user_id = [[[dict objectForKey:@"user"] objectForKey:@"id"] integerValue];
-        element.time = [dict objectForKey:@"created_at"];
-        element.type = WeiboType;
-        [statusInfo addObject:element];
-    }
-    [self.weiboDelegate receiveNews:statusInfo];
+    [self readTimeLineInfo:statusArray withType:WeiboType];
+//    NSMutableArray *statusInfo = [NSMutableArray array];
+//    for (NSDictionary *dict in statusArray) {
+//        NewsCacheElement *element = [[NewsCacheElement alloc] init];
+//        element.name = [[dict objectForKey:@"user"] objectForKey:@"screen_name"];
+//        element.content = [dict objectForKey:@"text"];
+//        element.headURL = [[dict objectForKey:@"user"] objectForKey:@"profile_image_url"];
+//        element.user_id = [[[dict objectForKey:@"user"] objectForKey:@"id"] integerValue];
+//        element.time = [dict objectForKey:@"created_at"];
+//        element.type = WeiboType;
+//        [statusInfo addObject:element];
+//    }
+//    [self.weiboDelegate receiveNews:statusInfo];
 }
 
+#pragma mark - Tencent Weibo
 
+-(void)onSuccessLogin{
+    [self.wbEngine getHomeTimelinewithFormat:@"json" pageFlag:0 pageTime:@"0" reqNum:20 type:0 andContentType:0 parReserved:nil delegate:self onSuccess:@selector(getTencentHomeLine:) onFailure:@selector(getTencentHomeLineFailed:)];
+}
+
+- (void)onFailureLogin:(NSError *)error{
+    NSLog(@"error: %@",error);
+}
+
+-(void)getTencentHomeLine:(id)result{
+    NSArray * status = [[result objectForKey:@"data"] objectForKey:@"info"];
+    if (status == nil || status.count < 1) {
+        return ;
+    }
+    [self readTimeLineInfo:status withType:TencentType];
+}
+
+-(void)getTencentHomeLineFailed:(NSError *)error{
+    NSLog(@"error: %@",error);
+}
 
 @end

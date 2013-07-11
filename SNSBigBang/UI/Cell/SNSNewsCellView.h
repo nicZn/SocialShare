@@ -12,6 +12,8 @@
 
 @interface SNSNewsCellView : UITableViewCell
 
+@property (nonatomic)SNSType type;
+
 -(void)loadDataFromCache:(NewsCacheElement *)dataCell withDelegate:(id<SNSCellDelegate>)snsCellDelegate;
 
 @end

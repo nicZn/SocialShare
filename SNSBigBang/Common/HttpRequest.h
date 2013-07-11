@@ -34,6 +34,8 @@
 
 -(NSString *)getDownloadFilePath;
 
+-(NSString *)getURLString;
+
 @end
 
 
