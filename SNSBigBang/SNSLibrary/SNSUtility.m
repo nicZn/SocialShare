@@ -28,7 +28,7 @@
 
 static SNSUtility * singleSNSUtility = nil;
 
-@interface SNSUtility()<RennLoginDelegate,RennServiveDelegate,SinaWeiboDelegate,SinaWeiboRequestDelegate,SinaWeiboAuthorizeViewDelegate>
+@interface SNSUtility()<RennLoginDelegate,RennServiveDelegate,SinaWeiboDelegate,SinaWeiboRequestDelegate>
 
 @property (nonatomic) SinaWeibo *weibo;
 @property (nonatomic, strong) TCWBEngine *wbEngine;
@@ -263,8 +263,8 @@ static SNSUtility * singleSNSUtility = nil;
 {
     if ([service.type isEqualToString:kRennServiceTypeListFeed]) {
         NSArray * info = response; 
-        NSMutableArray * newsArray = [NSMutableArray array];
         [self readTimeLineInfo:info withType:RenrenType];
+//        NSMutableArray * newsArray = [NSMutableArray array];
 //        for (NSDictionary *single in info) {
 //            NewsCacheElement *element = [[NewsCacheElement alloc] init];
 //            NSDictionary *userInfo = [[single objectForKey:@"sourceUser"] isKindOfClass:[NSDictionary class]]?[single objectForKey:@"sourceUser"]:nil;

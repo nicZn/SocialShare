@@ -71,7 +71,7 @@
             break;
         case 3:
         {
-            title = @"Setting";
+            title = @"Tencent Weibo";
         }
             break;
             

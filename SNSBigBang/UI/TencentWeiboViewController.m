@@ -101,7 +101,7 @@
     NSIndexPath *indexPath = [self.NewsTableView indexPathForSelectedRow];
     if ([segue.identifier isEqualToString:@"showDetail"]) {
         DetailInfoViewController *vc = [segue destinationViewController];
-        [vc loadUserInfo:[NSDictionary dictionaryWithObjectsAndKeys:[self.newsCache objectAtIndex:indexPath.row],@"Cell",[NSNumber numberWithInteger:RenrenType],@"Type",nil]];
+        [vc loadUserInfo:[NSDictionary dictionaryWithObjectsAndKeys:[self.newsCache objectAtIndex:indexPath.row],@"Cell",[NSNumber numberWithInteger:TencentType],@"Type",nil]];
     }
 }
 

@@ -104,7 +104,7 @@
 #pragma mark - segue method
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"showDetailWeibo"]) {
+    if ([segue.identifier isEqualToString:@"showWeibo"]) {
         NSIndexPath *indexPath = [self.NewsTableView indexPathForSelectedRow];
         DetailInfoViewController *vc = [segue destinationViewController];
         [vc loadUserInfo:[NSDictionary dictionaryWithObjectsAndKeys:[self.newsCache objectAtIndex:indexPath.row],@"Cell",[NSNumber numberWithInteger:WeiboType],@"Type",nil]];
