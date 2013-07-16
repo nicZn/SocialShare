@@ -137,7 +137,6 @@ static DataController * singletonDataController = nil;
     NSManagedObjectContext *managedObjectContext=self.managedObjectContext;
     if(managedObjectContext!=nil)
     {
-        NSLog(@"%@",[NSNumber numberWithBool:[managedObjectContext hasChanges]]);
         if([managedObjectContext hasChanges]&&![managedObjectContext save:&error])
         {
             NSLog(@"保存数据时出错了:%@",error);

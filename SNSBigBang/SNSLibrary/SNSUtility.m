@@ -26,6 +26,7 @@
 #define TCWBAppSecertKey @"2fda5d0b3f5a3870b31c1bdce64ed62f"
 #define TCWBAppRedirectUrl  @"http://t.qq.com/wangzizn"
 
+
 static SNSUtility * singleSNSUtility = nil;
 
 @interface SNSUtility()<RennLoginDelegate,RennServiveDelegate,SinaWeiboDelegate,SinaWeiboRequestDelegate>
@@ -159,6 +160,39 @@ static SNSUtility * singleSNSUtility = nil;
     }
 }
 
+#pragma mark - sns share
+-(void)shareUrl:(NSDictionary *)infoDict withType:(SNSType)type{
+    switch (type) {
+        case RenrenType:
+        {
+            PutShareUrlParam *shareUrlParm = [[PutShareUrlParam alloc] init];
+            shareUrlParm.comment = [[infoDict objectForKey:@"comment"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            shareUrlParm.url = [infoDict objectForKey:@"url"];
+            [RennClient sendAsynRequest:shareUrlParm delegate:self];
+        }
+            break;
+        case WeiboType:
+        {
+            NSMutableDictionary *param = [NSMutableDictionary dictionaryWithCapacity:0];
+            [param setObject:[[infoDict objectForKey:@"comment"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"status"];
+            [param setObject:[infoDict objectForKey:@"url"] forKey:@"url"];
+            [[self.weibo requestWithURL:@"statuses/upload_url_text.json" params:param httpMethod:@"POST" delegate:self] connect];
+        }
+        case WeChatType:
+        {
+            
+        }
+            break;
+        case TencentType:
+        {
+            [self.wbEngine postPictureURLTweetWithFormat:@"json" content:[[infoDict objectForKey:@"comment"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] clientIP:self.wbEngine.ip_iphone picURL:[infoDict objectForKey:@"url"] compatibleFlag:@"0" longitude:nil andLatitude:nil parReserved:nil delegate:self onSuccess:@selector(postShareFinish:) onFailure:@selector(postFailed:)];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 -(void)sendRennGetFeed{
     ListFeedParam *param = [[ListFeedParam alloc] init];
     [param setPageSize:10];
@@ -264,25 +298,6 @@ static SNSUtility * singleSNSUtility = nil;
     if ([service.type isEqualToString:kRennServiceTypeListFeed]) {
         NSArray * info = response; 
         [self readTimeLineInfo:info withType:RenrenType];
-//        NSMutableArray * newsArray = [NSMutableArray array];
-//        for (NSDictionary *single in info) {
-//            NewsCacheElement *element = [[NewsCacheElement alloc] init];
-//            NSDictionary *userInfo = [[single objectForKey:@"sourceUser"] isKindOfClass:[NSDictionary class]]?[single objectForKey:@"sourceUser"]:nil;
-//            if (userInfo) {
-//                element.name = [userInfo objectForKey:@"name"];
-//                element.headURL = [[[userInfo objectForKey:@"avatar"] objectAtIndex:0] objectForKey:@"url"];
-//                element.user_id = [[userInfo objectForKey:@"id"] integerValue];
-//                element.content = [single objectForKey:@"message"];
-//                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-//                element.time = [dateFormatter dateFromString:[single objectForKey:@"time"]];
-//                dateFormatter = nil;
-//                [newsArray addObject:element];
-//            }
-//        }
-//        if ([self.renrenDelegate respondsToSelector:@selector(receiveNews:)] && newsArray.count > 0) {
-//            [self.renrenDelegate receiveNews:newsArray];
-//        }
     }
     else if([service.type isEqualToString:kRennServiceTypeGetUser]){
         NSLog(@"renren user info:%@",response);
@@ -348,19 +363,10 @@ static SNSUtility * singleSNSUtility = nil;
 - (void)request:(SinaWeiboRequest *)request didFinishLoadingWithResult:(id)result{
     NSDictionary *dataDict = (NSDictionary *)result;
     NSArray *statusArray = [dataDict objectForKey:@"statuses"];
+    if (statusArray == nil || statusArray.count < 1) {
+        return ;
+    }
     [self readTimeLineInfo:statusArray withType:WeiboType];
-//    NSMutableArray *statusInfo = [NSMutableArray array];
-//    for (NSDictionary *dict in statusArray) {
-//        NewsCacheElement *element = [[NewsCacheElement alloc] init];
-//        element.name = [[dict objectForKey:@"user"] objectForKey:@"screen_name"];
-//        element.content = [dict objectForKey:@"text"];
-//        element.headURL = [[dict objectForKey:@"user"] objectForKey:@"profile_image_url"];
-//        element.user_id = [[[dict objectForKey:@"user"] objectForKey:@"id"] integerValue];
-//        element.time = [dict objectForKey:@"created_at"];
-//        element.type = WeiboType;
-//        [statusInfo addObject:element];
-//    }
-//    [self.weiboDelegate receiveNews:statusInfo];
 }
 
 #pragma mark - Tencent Weibo
@@ -383,6 +389,14 @@ static SNSUtility * singleSNSUtility = nil;
 
 -(void)getTencentHomeLineFailed:(NSError *)error{
     NSLog(@"error: %@",error);
+}
+
+-(void)postShareFinish:(id)result{
+    
+}
+
+-(void)postFailed:(NSError *)error{
+    NSLog(@"Tencent post failed; error: %@",error);
 }
 
 @end
