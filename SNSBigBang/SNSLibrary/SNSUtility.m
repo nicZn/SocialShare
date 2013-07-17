@@ -99,6 +99,8 @@ static SNSUtility * singleSNSUtility = nil;
 }
 
 
+#pragma mark - sns method
+
 -(void)getSelfInfo:(SNSType)type withDelegate:(id<SNSDelegate>)delegate{
     self.renrenDelegate = delegate;
     GetUserParam * userParam = [[GetUserParam alloc] init];
@@ -106,7 +108,6 @@ static SNSUtility * singleSNSUtility = nil;
     [RennClient sendAsynRequest:userParam delegate:self];
 }
 
-#pragma mark - sns method
 
 -(void)getNews:(SNSType)type withDelegate:(id<SNSDelegate>)delegate{
     switch (type) {
@@ -202,13 +203,75 @@ static SNSUtility * singleSNSUtility = nil;
 -(void)getTimeLineOfWeibo{
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     [params setObject:WeiboAppKey forKey:@"appkey"];
-    [[self.weibo requestWithURL:@"statuses/friends_timeline.json" params:params httpMethod:@"GET" delegate:self] connect];
+    [self.weibo requestWithURL:@"statuses/friends_timeline.json" params:params httpMethod:@"GET" delegate:self];
 }
 
 -(void)pushStatus:(NSString *)status withType:(SNSType)type andDelegate:(id<SNSDelegate>)delegate{
+    switch (type) {
+        case RenrenType:
+        {
+            PutStatusParam *statusParam = [[PutStatusParam alloc] init];
+            statusParam.content = status;
+            [RennClient sendAsynRequest:statusParam delegate:self];
+        }
+            break;
+        case WeiboType:
+        {
+            NSMutableDictionary *param = [NSMutableDictionary dictionaryWithCapacity:0];
+            [param setObject:status forKey:@"status"];
+            [[self.weibo requestWithURL:@"statuses/update.json" params:param httpMethod:@"POST" delegate:self] connect];
+        }
+            break;
+        case WeChatType:
+        {
+            
+        }
+            break;
+        case TencentType:
+        {
+            [self.wbEngine postTextTweetWithFormat:@"json" content:status clientIP:self.wbEngine.ip_iphone longitude:nil andLatitude:nil parReserved:nil delegate:self onSuccess:@selector(postShareFinish:) onFailure:@selector(postFailed:)];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)getFriendsList:(SNSType)type{
+    switch (type) {
+        case RenrenType:
+        {
+            ListFriendParam *friendParam = [[ListFriendParam alloc] init];
+            friendParam.userId = [RennClient uid];
+            [RennClient sendAsynRequest:friendParam delegate:self];
+        }
+            break;
+        case WeiboType:
+        {
+            [self.weibo requestWithURL:@"friendships/friends.json" params:[NSMutableDictionary dictionaryWithObject:self.weibo.userID forKey:@"uid"] httpMethod:@"GET" delegate:self];
+        }
+            break;
+        case WeChatType:
+        {
+            
+        }
+            break;
+        case TencentType:
+        {
+            [self.wbEngine getFriendIdolListWithFormat:@"json" reqNum:0 startIndex:0 andInstall:0 parReserved:nil delegate:self onSuccess:@selector(postShareFinish:) onFailure:@selector(postFailed:)];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)postComment:(NSString *)comment withEntryId:(NSString *)entryId entryOwnerId:(NSString *)ownerId snsType:(SNSType)type{
     
 }
 
+#pragma mark - read data method
 
 -(void)readTimeLineInfo:(id)result withType:(SNSType)type{
     NSArray *statusArray = (NSArray *)result;
@@ -276,15 +339,6 @@ static SNSUtility * singleSNSUtility = nil;
     }
 }
 
-
-#pragma mark - Weibo
-
-
--(void)pushStatus:(NSString *)status withDelegate:(id<SNSDelegate>)delegate{
-    NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    [params setObject:[[NSString alloc] initWithCString:[status cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding] forKey:@"status"];
-    [[weibo requestWithURL:@"statuses/update.json" params:params httpMethod:@"POST" delegate:singleSNSUtility] connect];
-}
 
 
 #pragma mark - Renren Delegate
