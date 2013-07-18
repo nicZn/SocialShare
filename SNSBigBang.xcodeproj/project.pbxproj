@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8503287B1786B26C00C3774C /* WeiboCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8503287A1786B26C00C3774C /* WeiboCell.m */; };
 		85169F841794D7C9007E43ED /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85169F801794D7C9007E43ED /* libWeChatSDK.a */; };
 		85169F851794D7CA007E43ED /* libWeChatSDK_armv7_armv7s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85169F811794D7C9007E43ED /* libWeChatSDK_armv7_armv7s.a */; };
 		852C2BFF177977AC005C1121 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 852C2BFE177977AC005C1121 /* UIKit.framework */; };
@@ -134,7 +133,6 @@
 		85DA82C0178BDB5900FCD1A2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85DA82BE178BDB2C00FCD1A2 /* CoreData.framework */; };
 		85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */; };
 		85DF3F74177D980100DC0A7B /* WeiboNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */; };
-		85EB0CDA178128800023291C /* RenrenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EB0CD9178128800023291C /* RenrenCell.m */; };
 		85FC7D21178D4E570069621C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FC7D1F178D4E4A0069621C /* QuartzCore.framework */; };
 		85FC7D24178D5B960069621C /* DetailInfoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FC7D23178D5B960069621C /* DetailInfoViewController.mm */; };
 		85FC7D2B178D67E90069621C /* SNSNewsCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 85FC7D2A178D67E80069621C /* SNSNewsCellView.m */; };
@@ -142,8 +140,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		850328791786B26C00C3774C /* WeiboCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboCell.h; path = UI/Cell/WeiboCell.h; sourceTree = "<group>"; };
-		8503287A1786B26C00C3774C /* WeiboCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboCell.m; path = UI/Cell/WeiboCell.m; sourceTree = "<group>"; };
 		85122910178D06ED0013B6C8 /* SNSCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SNSCellDelegate.h; path = UI/Cell/SNSCellDelegate.h; sourceTree = "<group>"; };
 		85169F801794D7C9007E43ED /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		85169F811794D7C9007E43ED /* libWeChatSDK_armv7_armv7s.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK_armv7_armv7s.a; sourceTree = "<group>"; };
@@ -357,8 +353,6 @@
 		85DF3F6F177D8FA700DC0A7B /* RenrenNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenrenNewsCell.m; path = SNSCache/RenrenNewsCell.m; sourceTree = "<group>"; };
 		85DF3F72177D980100DC0A7B /* WeiboNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboNewsCell.h; path = SNSCache/WeiboNewsCell.h; sourceTree = "<group>"; };
 		85DF3F73177D980100DC0A7B /* WeiboNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboNewsCell.m; path = SNSCache/WeiboNewsCell.m; sourceTree = "<group>"; };
-		85EB0CD8178128800023291C /* RenrenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenrenCell.h; path = UI/Cell/RenrenCell.h; sourceTree = "<group>"; };
-		85EB0CD9178128800023291C /* RenrenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenrenCell.m; path = UI/Cell/RenrenCell.m; sourceTree = "<group>"; };
 		85FC7D1F178D4E4A0069621C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		85FC7D22178D5B960069621C /* DetailInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailInfoViewController.h; path = UI/DetailInfoViewController.h; sourceTree = "<group>"; };
 		85FC7D23178D5B960069621C /* DetailInfoViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DetailInfoViewController.mm; path = UI/DetailInfoViewController.mm; sourceTree = "<group>"; };
@@ -845,10 +839,6 @@
 		85EB0CD41781281B0023291C /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				85EB0CD8178128800023291C /* RenrenCell.h */,
-				85EB0CD9178128800023291C /* RenrenCell.m */,
-				850328791786B26C00C3774C /* WeiboCell.h */,
-				8503287A1786B26C00C3774C /* WeiboCell.m */,
 				85122910178D06ED0013B6C8 /* SNSCellDelegate.h */,
 				85FC7D29178D67E80069621C /* SNSNewsCellView.h */,
 				85FC7D2A178D67E80069621C /* SNSNewsCellView.m */,
@@ -995,8 +985,6 @@
 				858EE5EF177AAECB000FF384 /* WeChatViewController.m in Sources */,
 				85DF3F70177D8FA700DC0A7B /* RenrenNewsCell.m in Sources */,
 				85DF3F74177D980100DC0A7B /* WeiboNewsCell.m in Sources */,
-				85EB0CDA178128800023291C /* RenrenCell.m in Sources */,
-				8503287B1786B26C00C3774C /* WeiboCell.m in Sources */,
 				8547A350178A579400D0C616 /* MainViewController.m in Sources */,
 				855082FD178A93EE007BACB3 /* FileManager.m in Sources */,
 				85508301178A9DB6007BACB3 /* HttpManager.m in Sources */,
