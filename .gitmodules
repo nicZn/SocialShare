@@ -1,3 +1,6 @@
 [submodule "SNSBigBang/vendor"]
 	path = SNSBigBang/vendor
 	url = git@github.com:sinaweibosdk/weibo_ios_sdk.git
+[submodule "SNSBigBang/WechatSDK"]
+	path = SNSBigBang/WechatSDK
+	url = git@github.com:princeNing/WechatSDK.git
